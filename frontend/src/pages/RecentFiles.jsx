@@ -3,48 +3,139 @@ from "react";
 
 import {
   getRecentFiles,
+  deleteRecentFile,
 } from "../utils/recentFiles";
+
+import { downloadFile }
+from "../utils/exportUtils";
+
+import { useNavigate }
+from "react-router-dom";
 
 function RecentFiles() {
 
   const [files, setFiles] =
     useState([]);
 
-  useEffect(() => {
+    useEffect(() => {
+      setFiles(
+        getRecentFiles()
+      );
+  }, []);
+
+  const handleDelete = (id) => {
+    deleteRecentFile(id);
+
     setFiles(
       getRecentFiles()
     );
-  }, []);
+  };
+
+  const [searchTerm, setSearchTerm] =
+    useState("");
+
+  const filteredFiles =
+  files.filter((file) =>
+    file.name
+      .toLowerCase()
+      .includes(
+        searchTerm.toLowerCase()
+      )
+  );  
+
+  const navigate = useNavigate();
 
   return (
     <div>
 
-      <h1>Recent Files</h1>
+      <h2 className="page-title">Recent Files</h2>
+
+      <div className="recent-search">
+        <div className="recent-stats">
+
+          <div className="stat-box">
+            <span>Total Files</span>
+            <strong>
+              {files.length}
+            </strong>
+          </div>
+
+        </div>
+        <input
+          type="text"
+          placeholder="Search files..."
+          value={searchTerm}
+          onChange={(e) =>
+            setSearchTerm(e.target.value)
+          }
+        />
+      </div>
 
       {files.length === 0 ? (
         <p>
           No conversions yet.
         </p>
       ) : (
-        files.map((file) => (
+        filteredFiles.map((file) => (
           <div
             key={file.id}
             className="recent-file-card"
           >
-            <h3>{file.name}</h3>
 
-            <p>
-              {(file.size /
-                1024 /
-                1024).toFixed(2)}
-              MB
-            </p>
+            <div className="recent-file-info">
 
-            <p>
-              {new Date(
-                file.createdAt
-              ).toLocaleString()}
-            </p>
+              <h3>{file.name}</h3>
+
+              <p>
+                {(file.size / 1024 / 1024)
+                  .toFixed(2)}
+                MB
+              </p>
+
+            </div>
+
+            <div className="recent-actions">
+
+              <button
+                className="open-btn"
+                onClick={() =>
+                  navigate(
+                    "/document-viewer",
+                    {
+                      state: { file },
+                    }
+                  )
+                }
+              >
+                Open
+              </button>
+
+              <button
+                className="download-btn"
+                onClick={() =>
+                  downloadFile(
+                    file.markdown,
+                    file.name.replace(
+                      ".pdf",
+                      ".md"
+                    ),
+                    "text/markdown"
+                  )
+                }
+              >
+                Download
+              </button>
+
+              <button className="delete-btn"
+                onClick={() =>
+                  handleDelete(file.id)
+                }
+              >
+                Delete
+              </button>
+
+            </div>
+
           </div>
         ))
       )}

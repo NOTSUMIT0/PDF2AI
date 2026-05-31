@@ -9,6 +9,8 @@ import About from "../pages/About";
 
 import AppLayout from "../layouts/AppLayout";
 
+import DocumentViewer from "../pages/DocumentViewer";
+
 function AppRoutes() {
   return (
     <BrowserRouter>
@@ -25,6 +27,8 @@ function AppRoutes() {
           <Route path="/settings" element={<Settings />} />
 
           <Route path="/about" element={<About />} />
+
+          <Route path="/document-viewer" element={<DocumentViewer />} />
         </Routes>
       </AppLayout>
     </BrowserRouter>

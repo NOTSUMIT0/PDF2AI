@@ -13,12 +13,18 @@ import {
   ToastProvider,
 } from "./contexts/ToastContext";
 
+import {
+  ThemeProvider,
+} from "./contexts/ThemeContext";
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <SidebarProvider>
-      <ToastProvider>
-        <App />
-      </ToastProvider>
-    </SidebarProvider>
+    <ThemeProvider>
+      <SidebarProvider>
+        <ToastProvider>
+          <App />
+        </ToastProvider>
+      </SidebarProvider>
+    </ThemeProvider>
   </StrictMode>
 );

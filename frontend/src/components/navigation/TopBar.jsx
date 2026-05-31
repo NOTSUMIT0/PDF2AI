@@ -1,7 +1,13 @@
+import ThemeToggle from "../ui/ThemeToggle";
+
 function Topbar() {
   return (
     <header className="topbar">
-      <div className="topbar-spacer"></div>
+
+      <div />
+
+      <ThemeToggle />
+
     </header>
   );
 }

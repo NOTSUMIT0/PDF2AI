@@ -10,23 +10,15 @@ function Dashboard() {
         </h1>
 
         <p className="dashboard-subtitle">
-          Prepare PDFs for ChatGPT, Claude, Gemini,
-          Perplexity and other AI tools.
+          Transform PDFs into clean,
+          structured, AI-ready content.
+
+          Extract text, preserve
+          document structure, search
+          instantly, and export for
+          ChatGPT, Claude, Gemini and
+          modern AI workflows.
         </p>
-
-        <section className="quick-actions">
-          <button className="action-card">
-            Convert PDF
-          </button>
-
-          <button className="action-card">
-            Recent Files
-          </button>
-
-          <button className="action-card">
-            Exports
-          </button>
-        </section>
 
         <FileUpload className="upload-zone">
 
@@ -56,22 +48,77 @@ function Dashboard() {
 
         </FileUpload>
 
-        <section className="recent-section">
-          <h2>Recent Documents</h2>
-        
-          <div className="empty-state">
-            No recent documents yet
+        <section className="security-card">
+
+          <div className="security-header">
+
+            <h2>
+              Privacy & Security
+            </h2>
+
+            <span className="security-badge">
+              Protected
+            </span>
+
           </div>
-        </section>
 
-        <section className="privacy-section">
-          <h2>Privacy & Security</h2>
+          <div className="security-grid">
 
-          <ul>
-            <li>Files stay on your device</li>
-            <li>No cloud uploads</li>
-            <li>No tracking or analytics</li>
-          </ul>
+            <div className="security-item">
+
+              <h3>
+                Local Processing
+              </h3>
+
+              <p>
+                Documents are processed on
+                your system before export.
+              </p>
+
+            </div>
+
+            <div className="security-item">
+
+              <h3>
+                No Cloud Storage
+              </h3>
+
+              <p>
+                Files are not permanently
+                stored on external servers.
+              </p>
+
+            </div>
+
+            <div className="security-item">
+
+              <h3>
+                Export Control
+              </h3>
+
+              <p>
+                Download Markdown, TXT,
+                and JSON whenever needed.
+              </p>
+
+            </div>
+
+            <div className="security-item">
+
+              <h3>
+                AI Ready
+              </h3>
+
+              <p>
+                Optimized output for
+                ChatGPT, Claude,
+                Gemini and other AI tools.
+              </p>
+
+            </div>
+
+          </div>
+
         </section>
       </div> 
   );

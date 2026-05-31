@@ -2,6 +2,8 @@ import logo from "../../assets/logo.png";
 
 import { NavLink } from "react-router-dom";
 
+import Tooltip from "../ui/Tooltip";
+
 import {
   PanelLeftClose,
   PanelLeftOpen,
@@ -45,35 +47,47 @@ function Sidebar() {
       </div>
 
       <nav>
-        <NavLink to="/" title={collapsed ? "Dashboard" : ""}>
-          <LayoutDashboard size={18} />
-          {!collapsed && ( <span>Dashboard</span> )}
-        </NavLink>
+        <Tooltip text="Dashboard">
+          <NavLink to="/" title={collapsed ? "Dashboard" : ""}>
+            <LayoutDashboard size={18} />
+            {!collapsed && ( <span>Dashboard</span> )}
+          </NavLink>
+        </Tooltip>
 
-        <NavLink to="/convert" title={collapsed ? "Convert" : ""}>
-          <FileText size={18} />
-          {!collapsed && ( <span>Convert</span> )}
-        </NavLink>
+        <Tooltip text="Convert">        
+          <NavLink to="/convert" title={collapsed ? "Convert" : ""}>
+            <FileText size={18} />
+            {!collapsed && ( <span>Convert</span> )}
+          </NavLink>
+        </Tooltip>
 
-        <NavLink to="/recent-files" title={collapsed ? "Recent Files" : ""}>
-          <History size={18} />
-          {!collapsed && ( <span>Recent Files</span> )}
-        </NavLink>
+        <Tooltip text="Recent Files">    
+          <NavLink to="/recent-files" title={collapsed ? "Recent Files" : ""}>
+            <History size={18} />
+            {!collapsed && ( <span>Recent Files</span> )}
+          </NavLink>
+        </Tooltip>
 
-        <NavLink to="/exports" title={collapsed ? "Exports" : ""}>
-          <FolderOpen size={18} />
-          {!collapsed && ( <span>Exports</span> )}
-        </NavLink>
+        <Tooltip text="Exports">  
+          <NavLink to="/exports" title={collapsed ? "Exports" : ""}>
+            <FolderOpen size={18} />
+            {!collapsed && ( <span>Exports</span> )}
+          </NavLink>
+        </Tooltip>
 
-        <NavLink to="/settings" title={collapsed ? "Settings" : ""}>
-          <Settings size={18} />
-          {!collapsed && ( <span>Settings</span> )}
-        </NavLink>
+        <Tooltip text="Settings">          
+          <NavLink to="/settings" title={collapsed ? "Settings" : ""}>
+            <Settings size={18} />
+            {!collapsed && ( <span>Settings</span> )}
+          </NavLink>
+        </Tooltip>
 
-        <NavLink to="/about" title={collapsed ? "About" : ""}>
-          <Info size={18} />
-          {!collapsed && ( <span>About</span> )}
-        </NavLink>
+        <Tooltip text="About">  
+          <NavLink to="/about" title={collapsed ? "About" : ""}>
+            <Info size={18} />
+            {!collapsed && ( <span>About</span> )}
+          </NavLink>
+        </Tooltip>  
       </nav>
     </aside>
   );

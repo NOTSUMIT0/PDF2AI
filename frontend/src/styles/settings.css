@@ -1,0 +1,108 @@
+.settings-page {
+  max-width: 1200px;
+}
+
+.settings-section {
+  background:
+    var(--bg-surface);
+
+  border: 1px solid
+    var(--border-color);
+
+  border-radius: 18px;
+
+  padding: 24px;
+
+  margin-bottom: 24px;
+}
+
+.settings-section h2 {
+  color:
+    var(--text-primary);
+
+  margin-bottom: 20px;
+}
+
+.setting-item {
+  display: flex;
+
+  justify-content:
+    space-between;
+
+  align-items: center;
+
+  margin-bottom: 16px;
+}
+
+.setting-item span {
+  color:
+    var(--text-primary);
+}
+
+.settings-btn {
+  background:
+    var(--accent);
+
+  color: white;
+
+  border: none;
+
+  padding: 10px 16px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+}
+
+.danger-btn {
+  background: #dc2626;
+
+  color: white;
+
+  border: none;
+
+  padding: 12px 18px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  font-weight: 600;
+}
+
+.about-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 20px;
+}
+
+.about-grid div {
+  background:
+    var(--bg-primary);
+
+  border: 1px solid
+    var(--border-color);
+
+  border-radius: 12px;
+
+  padding: 16px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+.about-grid span {
+  color:
+    var(--text-secondary);
+}
+
+.about-grid strong {
+  color:
+    var(--text-primary);
+}

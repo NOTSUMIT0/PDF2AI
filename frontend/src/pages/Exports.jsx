@@ -1,5 +1,214 @@
+import { useEffect, useState } from "react";
+
+import {
+  getRecentFiles,
+} from "../utils/recentFiles";
+
+import {
+  downloadFile,
+} from "../utils/exportUtils";
+
 function Exports() {
-  return <h1>Exports</h1>;
+
+  const [files, setFiles] =
+    useState([]);
+
+  const [searchTerm, setSearchTerm] =
+    useState("");
+
+  useEffect(() => {
+    setFiles(
+      getRecentFiles()
+    );
+  }, []);
+
+  const filteredFiles =
+    files.filter((file) =>
+      file.name
+        .toLowerCase()
+        .includes(
+          searchTerm.toLowerCase()
+        )
+    );
+
+  const handleCopy = async (
+    markdown
+  ) => {
+    await navigator.clipboard.writeText(
+      markdown
+    );
+
+    alert(
+      "Markdown copied!"
+    );
+  };
+
+  return (
+    <div>
+
+      <div className="page-header">
+
+        <h2 className="page-title">
+          Exports Center
+        </h2>
+
+        <p className="page-subtitle">
+          Export Markdown, TXT and JSON
+          formats instantly. Access previous
+          conversions and reuse AI-ready
+          content whenever needed.
+        </p>
+
+      </div>
+
+      <div className="export-stats">
+
+        <div className="stat-box">
+          <span>
+            Total Files
+          </span>
+          <strong>
+            {files.length}
+          </strong>
+        </div>
+
+        <div className="stat-box">
+          <span>
+            Markdown
+          </span>
+          <strong>
+            {files.length}
+          </strong>
+        </div>
+
+        <div className="stat-box">
+          <span>
+            TXT
+          </span>
+          <strong>
+            {files.length}
+          </strong>
+        </div>
+
+        <div className="stat-box">
+          <span>
+            JSON
+          </span>
+          <strong>
+            {files.length}
+          </strong>
+        </div>
+
+      </div>
+
+      <input
+        className="exports-search"
+        type="text"
+        placeholder="Search exports..."
+        value={searchTerm}
+        onChange={(e) =>
+          setSearchTerm(
+            e.target.value
+          )
+        }
+      />
+
+      {filteredFiles.map(
+        (file) => (
+
+          <div
+            key={file.id}
+            className="export-card"
+          >
+
+            <div>
+
+              <h3>
+                {file.name}
+              </h3>
+
+              <p>
+                {(file.size /
+                  1024 /
+                  1024).toFixed(2)}
+                MB
+              </p>
+
+            </div>
+
+            <div className="export-actions">
+
+              <button
+                className="md-btn"
+                onClick={() =>
+                  downloadFile(
+                    file.markdown,
+                    file.name.replace(
+                      ".pdf",
+                      ".md"
+                    ),
+                    "text/markdown"
+                  )
+                }
+              >
+                MD
+              </button>
+
+              <button
+                className="txt-btn"
+                onClick={() =>
+                  downloadFile(
+                    file.markdown,
+                    file.name.replace(
+                      ".pdf",
+                      ".txt"
+                    ),
+                    "text/plain"
+                  )
+                }
+              >
+                TXT
+              </button>
+
+              <button
+                className="json-btn"
+                onClick={() =>
+                  downloadFile(
+                    JSON.stringify(
+                      file,
+                      null,
+                      2
+                    ),
+                    file.name.replace(
+                      ".pdf",
+                      ".json"
+                    ),
+                    "application/json"
+                  )
+                }
+              >
+                JSON
+              </button>
+
+              <button
+                className="copy-btn"
+                onClick={() =>
+                  handleCopy(
+                    file.markdown
+                  )
+                }
+              >
+                Copy
+              </button>
+
+            </div>
+
+          </div>
+        )
+      )}
+
+    </div>
+  );
 }
 
 export default Exports;

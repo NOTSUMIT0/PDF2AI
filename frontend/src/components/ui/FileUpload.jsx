@@ -11,6 +11,8 @@ import { downloadFile } from "../../utils/exportUtils";
 
 import {saveRecentFile,} from "../../utils/recentFiles";
 
+import { getSaveHistory, } from "../../utils/settingsStorage";
+
 function FileUpload() {
   const inputRef = useRef(null);
 
@@ -76,18 +78,28 @@ function FileUpload() {
 
       setMarkdown(result.markdown);
 
-      saveRecentFile({
-        id: Date.now(),
+      if (
+        getSaveHistory()
+      ) {
 
-        name: file.name,
+        saveRecentFile({
 
-        size: file.size,
+          id: Date.now(),
 
-        markdown: result.markdown,
+          name: file.name,
 
-        createdAt:
-          new Date().toISOString(),
-      });
+          size: file.size,
+
+          markdown:
+            result.markdown,
+
+          createdAt:
+            new Date()
+            .toISOString(),
+
+        });
+
+      }
 
       setConverted(true);
 
@@ -126,6 +138,19 @@ function FileUpload() {
   const [converting, setConverting] = useState(false);
 
   const [markdown, setMarkdown] = useState("");
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const wordCount = markdown
+    ? markdown.trim().split(/\s+/).length
+    : 0;
+
+  const characterCount = markdown.length;
+
+  const estimatedTokens = Math.ceil(
+    characterCount / 4
+  );
+  
 
   const copyMarkdown = async () => {
     await navigator.clipboard.writeText(
@@ -168,6 +193,8 @@ function FileUpload() {
   };
 
   const [converted, setConverted] = useState(false);
+
+  
 
 
   return (
@@ -262,43 +289,90 @@ function FileUpload() {
 
           {markdown && (
             <div className="markdown-preview">
-              <div className="preview-header">
+              <div className="document-stats">
+                <div className="stat-box">
+                  <span>Words</span>
+                  <strong>{wordCount}</strong>
+                </div>
 
-                <h3>Markdown Output</h3>
+                <div className="stat-box">
+                  <span>Characters</span>
+                  <strong>{characterCount}</strong>
+                </div>
+
+                <div className="stat-box">
+                  <span>Tokens</span>
+                  <strong>{estimatedTokens}</strong>
+                </div>
+              </div>
+                <div className="preview-header">
+
+                  <h3>Markdown Output</h3>
+
+                </div>
+
+                <div className="search-container">
+
+                  <input
+                    type="text"
+                    placeholder="Search inside document..."
+                    value={searchTerm}
+                    onChange={(e) =>
+                      setSearchTerm(e.target.value)
+                    }
+                    className="search-input"
+                  />
+
+                </div>
 
                 <div className="export-toolbar">
 
                   <button
-                    onClick={copyMarkdown}
-                  >
+                      className="copy-btn"
+                      onClick={copyMarkdown}
+                    >
                     Copy
                   </button>
 
                   <button
-                    onClick={downloadMarkdown}
-                  >
+                      className="md-btn"
+                      onClick={downloadMarkdown}
+                    >
                     MD
                   </button>
 
                   <button
-                    onClick={downloadText}
-                  >
+                      className="txt-btn"
+                      onClick={downloadText}
+                    >
                     TXT
                   </button>
 
                   <button
-                    onClick={downloadJson}
-                  >
+                      className="json-btn"
+                      onClick={downloadJson}
+                    >
                     JSON
                   </button>
 
                 </div>
 
-              </div>
-
               <div className="markdown-content">
                 <ReactMarkdown>
-                  {markdown}
+                  {
+                    searchTerm
+                      ? markdown
+                          .split("\n")
+                          .filter((line) =>
+                            line
+                              .toLowerCase()
+                              .includes(
+                                searchTerm.toLowerCase()
+                              )
+                          )
+                          .join("\n")
+                      : markdown
+                  }
                 </ReactMarkdown>
               </div>
             </div>
