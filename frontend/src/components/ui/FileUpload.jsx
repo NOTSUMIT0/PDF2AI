@@ -3,6 +3,14 @@ import { Upload, X } from "lucide-react";
 
 import { useToast } from "../../contexts/ToastContext";
 
+import { convertPdf } from "../../services/conversionService";
+
+import ReactMarkdown from "react-markdown";
+
+import { downloadFile } from "../../utils/exportUtils";
+
+import {saveRecentFile,} from "../../utils/recentFiles";
+
 function FileUpload() {
   const inputRef = useRef(null);
 
@@ -58,8 +66,55 @@ function FileUpload() {
     handleSelect(droppedFile);
   };
 
+  const handleConvert = async () => {
+    if (!file) return;
+
+    try {
+      setConverting(true);
+
+      const result = await convertPdf(file);
+
+      setMarkdown(result.markdown);
+
+      saveRecentFile({
+        id: Date.now(),
+
+        name: file.name,
+
+        size: file.size,
+
+        markdown: result.markdown,
+
+        createdAt:
+          new Date().toISOString(),
+      });
+
+      setConverted(true);
+
+      showToast(
+        "Conversion Complete",
+        "PDF converted successfully.",
+        "success"
+      );
+    } catch (error) {
+      console.error(error);
+
+      showToast(
+        "Conversion Failed",
+        "Unable to process document.",
+        "error"
+      );
+    } finally {
+      setConverting(false);
+    }
+  };
+
   const removeFile = () => {
     setFile(null);
+
+    setConverted(false);
+
+    setMarkdown("");
 
     if (inputRef.current) {
       inputRef.current.value = "";
@@ -69,6 +124,51 @@ function FileUpload() {
   const { showToast } = useToast();
 
   const [converting, setConverting] = useState(false);
+
+  const [markdown, setMarkdown] = useState("");
+
+  const copyMarkdown = async () => {
+    await navigator.clipboard.writeText(
+      markdown
+    );
+
+    showToast(
+      "Copied",
+      "Markdown copied to clipboard.",
+      "success"
+    );
+  };
+
+  const downloadMarkdown = () => {
+    downloadFile(
+      markdown,
+      "document.md",
+      "text/markdown"
+    );
+  };
+
+  const downloadText = () => {
+    downloadFile(
+      markdown,
+      "document.txt",
+      "text/plain"
+    );
+  };
+
+  const downloadJson = () => {
+    downloadFile(
+      JSON.stringify(
+        { markdown },
+        null,
+        2
+      ),
+      "document.json",
+      "application/json"
+    );
+  };
+
+  const [converted, setConverted] = useState(false);
+
 
   return (
     <>
@@ -114,43 +214,96 @@ function FileUpload() {
           </span>
         </section>
       ) : (
-        <div className="file-card">
+        <>
+          <div className="file-card">
 
-          <div className="file-info">
+            <div className="file-info">
 
-            <h3>{file.name}</h3>
+              <h3>{file.name}</h3>
 
-            <p>
-              Size: {(file.size / 1024 / 1024).toFixed(2)} MB
-            </p>
+              <p>
+                Size: {(file.size / 1024 / 1024).toFixed(2)} MB
+              </p>
 
-            <span className="file-status">
-              Ready For Conversion
-            </span>
+              <span className="file-status">
+                {converted
+                  ? "Conversion Complete"
+                  : "Ready For Conversion"}
+              </span>
+
+            </div>
+
+            <div className="file-actions">
+
+              <button
+                className={`convert-btn ${
+                  converted ? "success" : ""
+                }`}
+                disabled={converting || converted}
+                onClick={handleConvert}
+              >
+                {converting
+                  ? "Converting..."
+                  : converted
+                    ? "Converted"
+                    : "Convert"}
+              </button>
+
+              <button
+                className="remove-file-btn"
+                onClick={removeFile}
+              >
+                <X size={18} />
+              </button>
+
+            </div>
 
           </div>
 
-          <div className="file-actions">
+          {markdown && (
+            <div className="markdown-preview">
+              <div className="preview-header">
 
-            <button
-              className="convert-btn"
-              disabled={converting}
-            >
-              {converting
-                ? "Converting..."
-                : "Convert"}
-            </button>
+                <h3>Markdown Output</h3>
 
-            <button
-              className="remove-file-btn"
-              onClick={removeFile}
-            >
-              <X size={18} />
-            </button>
+                <div className="export-toolbar">
 
-          </div>
+                  <button
+                    onClick={copyMarkdown}
+                  >
+                    Copy
+                  </button>
 
-        </div>
+                  <button
+                    onClick={downloadMarkdown}
+                  >
+                    MD
+                  </button>
+
+                  <button
+                    onClick={downloadText}
+                  >
+                    TXT
+                  </button>
+
+                  <button
+                    onClick={downloadJson}
+                  >
+                    JSON
+                  </button>
+
+                </div>
+
+              </div>
+
+              <div className="markdown-content">
+                <ReactMarkdown>
+                  {markdown}
+                </ReactMarkdown>
+              </div>
+            </div>
+          )}
+        </>
       )}
     </>
   );
