@@ -1,0 +1,74 @@
+body {
+  background: var(--bg-primary);
+}
+
+.app-layout {
+  display: flex;
+  height: 100vh;
+}
+
+.main-section {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  height: 56px;
+
+  background: var(--bg-surface);
+
+  border-bottom: 1px solid var(--border-color);
+
+  display: flex;
+
+  align-items: center;
+
+  padding: 0 20px;
+
+  flex-shrink: 0;
+}
+
+.page-content {
+  flex: 1;
+
+  padding: 40px;
+}
+
+.toast {
+  position: fixed;
+
+  top: 20px;
+  right: 20px;
+
+  width: 320px;
+
+  padding: 16px;
+
+  border-radius: 12px;
+
+  background: white;
+
+  border: 1px solid var(--border-color);
+
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+
+  z-index: 9999;
+}
+
+.toast h4 {
+  margin-bottom: 6px;
+
+  font-size: 15px;
+}
+
+.toast p {
+  font-size: 14px;
+
+  color: var(--text-secondary);
+}
+
+.toast.error {
+  border-left: 4px solid #ef4444;
+}
