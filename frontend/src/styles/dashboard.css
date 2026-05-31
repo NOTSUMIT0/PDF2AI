@@ -368,3 +368,9 @@
 .convert-btn:hover {
   opacity: 0.95;
 }
+
+.convert-btn:disabled {
+  opacity: 0.7;
+
+  cursor: not-allowed;
+}

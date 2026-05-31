@@ -68,6 +68,8 @@ function FileUpload() {
 
   const { showToast } = useToast();
 
+  const [converting, setConverting] = useState(false);
+
   return (
     <>
       {!file ? (
@@ -132,8 +134,11 @@ function FileUpload() {
 
             <button
               className="convert-btn"
+              disabled={converting}
             >
-              Convert
+              {converting
+                ? "Converting..."
+                : "Convert"}
             </button>
 
             <button
