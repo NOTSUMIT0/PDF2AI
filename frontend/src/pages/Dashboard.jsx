@@ -117,6 +117,32 @@ function Dashboard() {
 
             </div>
 
+            <div className="security-item">
+
+                <h3>
+                  User Controlled Data
+                </h3>
+
+                <p>
+                  Recent files and history can be
+                  cleared anytime from Settings.
+                </p>
+
+            </div>
+
+            <div className="security-item">
+
+                <h3>
+                  Secure Processing
+                </h3>
+
+                <p>
+                  Documents are processed through a controlled conversion 
+                  pipeline with no third-party analytics or tracking.
+                </p>
+
+            </div>            
+
           </div>
 
         </section>
