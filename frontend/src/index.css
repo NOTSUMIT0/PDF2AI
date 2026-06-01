@@ -7,6 +7,8 @@
 @import "./styles/documentViewer.css";
 @import "./styles/exports.css";
 @import "./styles/settings.css";
+@import "./styles/about.css";
+@import "./styles/convert.css";
 
 * {
   margin: 0;

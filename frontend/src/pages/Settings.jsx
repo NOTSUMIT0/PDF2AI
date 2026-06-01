@@ -14,46 +14,44 @@ from "../utils/settingsStorage";
 import { useTheme }
 from "../contexts/ThemeContext";
 
+import { useToast }
+from "../contexts/ToastContext";
+
 function Settings() {
 
-const [
-  saveHistory,
-  setSaveHistoryState,
-] = useState(
-  getSaveHistory()
-);
+  const [
+    saveHistory,
+    setSaveHistoryState,
+  ] = useState(
+    getSaveHistory()
+  );
 
   const recentFilesCount =
     getRecentFiles().length;
 
-  const handleClearHistory = () => {
+const handleClearHistory = () => {
 
-    if (
-      window.confirm(
-        "Delete all recent files?"
-      )
-    ) {
+  clearRecentFiles();
 
-      clearRecentFiles();
+  showToast(
+    "History Cleared",
+    "All recent files have been removed.",
+    "success"
+  );
 
-  const handleClearHistory = () => {
-        if (
-          window.confirm(
-            "Delete all recent files?"
-          )
-        ) {
-          clearRecentFiles();
+  setTimeout(() => {
+    window.location.reload();
+  }, 800);
 
-          window.location.reload();
-        }
-      };
-    }
-  };
+};
 
   const {
-  theme,
-  toggleTheme,
-} = useTheme();
+    theme,
+    toggleTheme,
+  } = useTheme();
+
+  const { showToast } =
+  useToast();
 
   return (
     <div className="settings-page">
@@ -78,20 +76,59 @@ const [
 
         <h2>Appearance</h2>
 
-        <div className="setting-item">
+        <div className="theme-selector">
 
-          <span>
-            Theme
-          </span>
+          <button
+            className={`theme-card ${
+              theme === "light"
+                ? "active-theme"
+                : ""
+            }`}
+              onClick={() => {
 
-        <button
-          className="settings-btn"
-          onClick={toggleTheme}
-        >
-          {theme === "dark"
-            ? "Switch To Light"
-            : "Switch To Dark"}
-        </button>
+                if (theme === "dark") {
+
+                  toggleTheme();
+
+                  showToast(
+                    "Theme Updated",
+                    "Light mode activated.",
+                    "success"
+                  );
+
+                }
+
+              }}
+          >
+            ☀
+            <span>Light Mode</span>
+          </button>
+
+          <button
+            className={`theme-card ${
+              theme === "dark"
+                ? "active-theme"
+                : ""
+            }`}
+              onClick={() => {
+
+                if (theme === "light") {
+
+                  toggleTheme();
+
+                  showToast(
+                    "Theme Updated",
+                    "Dark mode activated.",
+                    "success"
+                  );
+
+                }
+
+              }}
+          >
+            🌙
+            <span>Dark Mode</span>
+          </button>
 
         </div>
 
@@ -111,24 +148,42 @@ const [
             Save Conversion History
           </span>
 
-          <input
-            type="checkbox"
-            checked={saveHistory}
-            onChange={() => {
+          <label className="switch">
 
-              const value =
-                !saveHistory;
+            <input
+              type="checkbox"
+              checked={saveHistory}
+              onChange={() => {
 
-              setSaveHistoryState(
-                value
-              );
+                const value =
+                  !saveHistory;
 
-              setSaveHistory(
-                value
-              );
+                setSaveHistoryState(
+                  value
+                );
 
-            }}
-          />
+                setSaveHistory(
+                  value
+                );
+
+                showToast(
+                  value
+                    ? "History Enabled"
+                    : "History Disabled",
+
+                  value
+                    ? "Future conversions will be saved."
+                    : "Future conversions will not be saved.",
+
+                  "info"
+                );
+
+              }}
+            />
+
+            <span className="slider"></span>
+
+          </label>
 
         </div>
 
@@ -142,26 +197,30 @@ const [
           Storage Management
         </h2>
 
-        <div className="setting-item">
+        <div className="storage-card">
 
           <span>
-            Recent Files
+            Recent Files Stored
           </span>
 
-          <strong>
+          <h3>
             {recentFilesCount}
-          </strong>
+          </h3>
+
+          <p>
+            Files Available
+          </p>
+
+          <button
+            className="danger-btn"
+            onClick={
+              handleClearHistory
+            }
+          >
+            Clear Recent Files
+          </button>
 
         </div>
-
-        <button
-          className="danger-btn"
-          onClick={
-            handleClearHistory
-          }
-        >
-          Clear Recent Files
-        </button>
 
       </section>
 

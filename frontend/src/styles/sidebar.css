@@ -99,7 +99,7 @@
 .sidebar a.active {
   background: var(--accent);
 
-  color: white;
+  color: rgb(56, 53, 53);
 }
 
 .sidebar a.active:hover {
@@ -127,4 +127,28 @@
 
 .sidebar.collapsed a {
   position: relative;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
+
+[data-theme="dark"] .sidebar.collapsed a:hover {
+  background: rgba(255,255,255,0.06);
+
+  transform: translateX(2px);
+
+  box-shadow:
+    6px 0 16px rgba(0,0,0,0.45);
+}
+
+[data-theme="light"] .sidebar.collapsed a:hover {
+  background: rgba(15,23,42,0.06);
+
+  transform: translateX(2px);
+
+  box-shadow:
+    6px 0 16px rgba(15,23,42,0.12);
+}
+

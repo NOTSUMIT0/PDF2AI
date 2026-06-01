@@ -29,3 +29,17 @@
 
   --accent: #3b82f6;
 }
+
+/* Below section can be deleted or instead of above dark mode these below can be replaced with */
+
+[data-theme="dark"] {
+  --text-primary: #ffffff;
+
+  --text-secondary: #94a3b8;
+}
+
+[data-theme="light"] {
+  --text-primary: #0f172a;
+
+  --text-secondary: #64748b;
+}

@@ -8,6 +8,9 @@ import {
   downloadFile,
 } from "../utils/exportUtils";
 
+import { useToast }
+from "../contexts/ToastContext";
+
 function Exports() {
 
   const [files, setFiles] =
@@ -31,16 +34,23 @@ function Exports() {
         )
     );
 
+  const { showToast } =
+    useToast();
+
   const handleCopy = async (
     markdown
   ) => {
+
     await navigator.clipboard.writeText(
       markdown
     );
 
-    alert(
-      "Markdown copied!"
+    showToast(
+      "Copied",
+      "Markdown copied to clipboard.",
+      "success"
     );
+
   };
 
   return (
@@ -112,99 +122,123 @@ function Exports() {
           )
         }
       />
+      
+      {filteredFiles.length === 0 ? (
 
-      {filteredFiles.map(
-        (file) => (
+        <div className="empty-state">
 
-          <div
-            key={file.id}
-            className="export-card"
-          >
-
-            <div>
-
-              <h3>
-                {file.name}
-              </h3>
-
-              <p>
-                {(file.size /
-                  1024 /
-                  1024).toFixed(2)}
-                MB
-              </p>
-
-            </div>
-
-            <div className="export-actions">
-
-              <button
-                className="md-btn"
-                onClick={() =>
-                  downloadFile(
-                    file.markdown,
-                    file.name.replace(
-                      ".pdf",
-                      ".md"
-                    ),
-                    "text/markdown"
-                  )
-                }
-              >
-                MD
-              </button>
-
-              <button
-                className="txt-btn"
-                onClick={() =>
-                  downloadFile(
-                    file.markdown,
-                    file.name.replace(
-                      ".pdf",
-                      ".txt"
-                    ),
-                    "text/plain"
-                  )
-                }
-              >
-                TXT
-              </button>
-
-              <button
-                className="json-btn"
-                onClick={() =>
-                  downloadFile(
-                    JSON.stringify(
-                      file,
-                      null,
-                      2
-                    ),
-                    file.name.replace(
-                      ".pdf",
-                      ".json"
-                    ),
-                    "application/json"
-                  )
-                }
-              >
-                JSON
-              </button>
-
-              <button
-                className="copy-btn"
-                onClick={() =>
-                  handleCopy(
-                    file.markdown
-                  )
-                }
-              >
-                Copy
-              </button>
-
-            </div>
-
+          <div className="empty-icon">
+            📦
           </div>
+
+          <h2>
+            No Exports Available
+          </h2>
+
+          <p>
+            Convert your first PDF to create
+            Markdown, TXT and JSON exports.
+          </p>
+
+        </div>
+
+      ) : (
+
+        filteredFiles.map(
+          (file) => (
+
+            <div
+              key={file.id}
+              className="export-card"
+            >
+
+              <div>
+
+                <h3>
+                  {file.name}
+                </h3>
+
+                <p>
+                  {(file.size /
+                    1024 /
+                    1024).toFixed(2)}
+                  MB
+                </p>
+
+              </div>
+
+              <div className="export-actions">
+
+                <button
+                  className="md-btn"
+                  onClick={() =>
+                    downloadFile(
+                      file.markdown,
+                      file.name.replace(
+                        ".pdf",
+                        ".md"
+                      ),
+                      "text/markdown"
+                    )
+                  }
+                >
+                  MD
+                </button>
+
+                <button
+                  className="txt-btn"
+                  onClick={() =>
+                    downloadFile(
+                      file.markdown,
+                      file.name.replace(
+                        ".pdf",
+                        ".txt"
+                      ),
+                      "text/plain"
+                    )
+                  }
+                >
+                  TXT
+                </button>
+
+                <button
+                  className="json-btn"
+                  onClick={() =>
+                    downloadFile(
+                      JSON.stringify(
+                        file,
+                        null,
+                        2
+                      ),
+                      file.name.replace(
+                        ".pdf",
+                        ".json"
+                      ),
+                      "application/json"
+                    )
+                  }
+                >
+                  JSON
+                </button>
+
+                <button
+                  className="copy-btn"
+                  onClick={() =>
+                    handleCopy(
+                      file.markdown
+                    )
+                  }
+                >
+                  Copy
+                </button>
+
+              </div>
+
+            </div>
+
+          )
         )
+
       )}
 
     </div>

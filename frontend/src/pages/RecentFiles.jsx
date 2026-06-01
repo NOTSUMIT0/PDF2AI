@@ -72,9 +72,24 @@ function RecentFiles() {
       </div>
 
       {files.length === 0 ? (
-        <p>
-          No conversions yet.
-        </p>
+
+        <div className="empty-state">
+
+          <div className="empty-icon">
+            📄
+          </div>
+
+          <h2>
+            No Conversions Yet
+          </h2>
+
+          <p>
+            Convert your first PDF to start
+            building your document history.
+          </p>
+
+        </div>
+
       ) : (
         filteredFiles.map((file) => (
           <div
