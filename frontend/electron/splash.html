@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<style>
+
+body{
+    margin:0;
+    background:#07152d;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    overflow:hidden;
+    font-family:'Segoe UI',sans-serif;
+}
+
+.container{
+    text-align:center;
+}
+
+.logo{
+    width:180px;
+    height:180px;
+
+    animation:spin 3s linear infinite;
+}
+
+.title{
+    margin-top:30px;
+    color:white;
+    font-size:42px;
+    font-weight:700;
+}
+
+.subtitle{
+    margin-top:10px;
+    color:#94a3b8;
+    font-size:18px;
+}
+
+.loading{
+    margin-top:25px;
+    color:#60a5fa;
+    font-size:16px;
+}
+
+@keyframes spin{
+    from{
+        transform:rotate(0deg);
+    }
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<img
+src="logo.png"
+class="logo"
+/>
+
+<div class="title">
+PDF2AI
+</div>
+
+<div class="subtitle">
+AI Document Conversion Platform
+</div>
+
+<div class="loading">
+Initializing AI Engine...
+</div>
+
+</div>
+
+</body>
+
+</html>

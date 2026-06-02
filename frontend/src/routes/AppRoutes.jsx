@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 
 import Dashboard from "../pages/Dashboard";
 import Convert from "../pages/Convert";
@@ -13,7 +13,7 @@ import DocumentViewer from "../pages/DocumentViewer";
 
 function AppRoutes() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <AppLayout>
         <Routes>
           <Route path="/" element={<Dashboard />} />
@@ -31,7 +31,7 @@ function AppRoutes() {
           <Route path="/document-viewer" element={<DocumentViewer />} />
         </Routes>
       </AppLayout>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

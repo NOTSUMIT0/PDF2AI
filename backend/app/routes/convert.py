@@ -1,10 +1,12 @@
 from fastapi import APIRouter, UploadFile, File
+
 from app.services.markitdown_service import (
     convert_pdf_to_markdown
 )
 
 import tempfile
 import os
+import traceback
 
 router = APIRouter()
 
@@ -16,6 +18,7 @@ async def convert_pdf(
     temp_path = None
 
     try:
+
         with tempfile.NamedTemporaryFile(
             delete=False,
             suffix=".pdf"
@@ -36,6 +39,17 @@ async def convert_pdf(
             "markdown": markdown
         }
 
+    except Exception as e:
+
+        print("CONVERT ERROR")
+        traceback.print_exc()
+
+        return {
+            "success": False,
+            "error": str(e)
+        }
+
     finally:
+
         if temp_path and os.path.exists(temp_path):
             os.remove(temp_path)
