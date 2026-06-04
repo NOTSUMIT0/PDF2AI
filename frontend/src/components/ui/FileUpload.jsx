@@ -13,6 +13,8 @@ import {saveRecentFile,} from "../../utils/recentFiles";
 
 import { getSaveHistory, } from "../../utils/settingsStorage";
 
+import LoadingOverlay from "../ui/LoadingOverlay";
+
 function FileUpload() {
   const inputRef = useRef(null);
 
@@ -68,58 +70,113 @@ function FileUpload() {
     handleSelect(droppedFile);
   };
 
-  const handleConvert = async () => {
-    if (!file) return;
+const handleConvert = async () => {
 
-    try {
-      setConverting(true);
+  if (!file) return;
 
-      const result = await convertPdf(file);
+  try {
 
-      setMarkdown(result.markdown);
+    setConverting(true);
 
-      if (
-        getSaveHistory()
-      ) {
+    setTimeout(() => {
 
-        saveRecentFile({
+      setOverlayTitle(
+        "Processing PDF"
+      );
 
-          id: Date.now(),
+      setOverlayMessage(
+        "Scanned PDFs may take longer. OCR text recognition is running."
+      );
 
-          name: file.name,
+    }, 3000);
 
-          size: file.size,
+    setOverlayTitle(
+      "Analyzing Document"
+    );
 
-          markdown:
-            result.markdown,
+    setOverlayMessage(
+      "Checking PDF structure and content."
+    );
 
-          createdAt:
-            new Date()
+    setStatus(
+      "Analyzing Document..."
+    );
+
+    const result =
+      await convertPdf(file);
+
+    setOverlayTitle(
+      "Generating Markdown"
+    );
+
+    setOverlayMessage(
+      "Converting document into AI-ready content."
+    );
+
+    setStatus(
+      "Generating Markdown..."
+    );
+
+    setMarkdown(
+      result.markdown
+    );
+
+    if (
+      getSaveHistory()
+    ) {
+
+      saveRecentFile({
+
+        id: Date.now(),
+
+        name: file.name,
+
+        size: file.size,
+
+        markdown:
+          result.markdown,
+
+        createdAt:
+          new Date()
             .toISOString(),
 
-        });
+      });
 
-      }
-
-      setConverted(true);
-
-      showToast(
-        "Conversion Complete",
-        "PDF converted successfully.",
-        "success"
-      );
-    } catch (error) {
-      console.error(error);
-
-      showToast(
-        "Conversion Failed",
-        "Unable to process document.",
-        "error"
-      );
-    } finally {
-      setConverting(false);
     }
-  };
+
+    setConverted(true);
+
+    setStatus(
+      "Conversion Complete"
+    );
+
+    showToast(
+      "Conversion Complete",
+      "PDF converted successfully.",
+      "success"
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+    setStatus(
+      "Conversion Failed"
+    );
+
+    showToast(
+      "Conversion Failed",
+      "Unable to process document.",
+      "error"
+    );
+
+  } finally {
+
+    setConverting(false);
+
+  }
+
+};
 
   const removeFile = () => {
     setFile(null);
@@ -193,6 +250,16 @@ function FileUpload() {
   };
 
   const [converted, setConverted] = useState(false);
+
+  const [status, setStatus] = useState("");
+
+  const [overlayTitle,
+  setOverlayTitle] =
+  useState("");
+
+  const [overlayMessage,
+    setOverlayMessage] =
+    useState("");
 
   
 
@@ -269,11 +336,11 @@ function FileUpload() {
                 disabled={converting || converted}
                 onClick={handleConvert}
               >
-                {converting
-                  ? "Converting..."
-                  : converted
-                    ? "Converted"
-                    : "Convert"}
+              {converting
+                ? status
+                : converted
+                  ? "Converted"
+                  : "Convert"}
               </button>
 
               <button
@@ -379,6 +446,22 @@ function FileUpload() {
           )}
         </>
       )}
+
+      {converting && (
+
+      <LoadingOverlay
+
+        title={
+          overlayTitle
+        }
+
+        message={
+          overlayMessage
+        }
+
+      />
+
+    )}
     </>
   );
 }

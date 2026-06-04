@@ -36,6 +36,91 @@ function About() {
 
       </section>
 
+      <section className="about-section">
+
+        <h2>
+          Why AI-Ready Markdown?
+        </h2>
+
+        <div className="benefits-card-grid">
+
+          <div className="benefit-card">
+            <h3>Lower Token Usage</h3>
+            <p>
+              Removes unnecessary PDF formatting,
+              reducing token consumption when
+              sending documents to LLMs.
+            </p>
+          </div>
+
+          <div className="benefit-card">
+            <h3>Better AI Responses</h3>
+            <p>
+              Structured Markdown helps AI models
+              understand headings, lists, tables
+              and document hierarchy.
+            </p>
+          </div>
+
+          <div className="benefit-card">
+            <h3>RAG Ready</h3>
+            <p>
+              Ideal for vector databases,
+              semantic search and Retrieval
+              Augmented Generation systems.
+            </p>
+          </div>
+
+          <div className="benefit-card">
+            <h3>OCR Support</h3>
+            <p>
+              Extracts text from scanned PDFs
+              and image-based documents before
+              generating Markdown.
+            </p>
+          </div>
+
+          <div className="benefit-card">
+            <h3>Local Processing</h3>
+            <p>
+              Documents are processed locally
+              without uploading files to
+              external cloud services.
+            </p>
+          </div>
+
+          <div className="benefit-card">
+            <h3>Multiple Export Formats</h3>
+            <p>
+              Export results as Markdown,
+              TXT or JSON for different
+              AI workflows.
+            </p>
+          </div>
+
+        </div>
+
+      </section>
+
+      <section className="about-section token-section">
+
+        <h2>
+          Why Token Efficiency Matters
+        </h2>
+
+        <p>
+          A raw PDF often contains formatting
+          artifacts, page numbers, headers and
+          layout noise that consume unnecessary
+          tokens.
+
+          PDF2AI extracts only meaningful content,
+          helping reduce token usage while improving
+          AI accuracy and retrieval performance.
+        </p>
+
+      </section>
+
       {/* Features */}
 
       <section className="about-section">
@@ -55,10 +140,6 @@ function About() {
           <div>✓ Multiple Exports</div>
 
           <div>✓ Search Documents</div>
-
-          <div>✓ Analytics Dashboard</div>
-
-          <div>✓ Dark & Light Themes</div>
 
           <div>✓ Privacy First Design</div>
 
@@ -157,30 +238,47 @@ function About() {
 
           <div>
             <span>Frontend</span>
-            <strong>
-              React + Vite
-            </strong>
+            <strong>React + Vite</strong>
+          </div>
+
+          <div>
+            <span>Desktop Framework</span>
+            <strong>Electron</strong>
           </div>
 
           <div>
             <span>Backend</span>
-            <strong>
-              FastAPI
-            </strong>
+            <strong>FastAPI</strong>
           </div>
 
           <div>
             <span>Converter</span>
-            <strong>
-              Microsoft MarkItDown
-            </strong>
+            <strong>Microsoft MarkItDown</strong>
+          </div>
+
+          <div>
+            <span>OCR Engine</span>
+            <strong>OCRmyPDF + Tesseract</strong>
           </div>
 
           <div>
             <span>Storage</span>
-            <strong>
-              LocalStorage
-            </strong>
+            <strong>LocalStorage</strong>
+          </div>
+
+          <div>
+            <span>Packaging</span>
+            <strong>PyInstaller</strong>
+          </div>
+
+          <div>
+            <span>Document Processing</span>
+            <strong>PyMuPDF</strong>
+          </div>
+
+          <div>
+            <span>API Communication</span>
+            <strong>Axios</strong>
           </div>
 
         </div>
@@ -235,13 +333,6 @@ function About() {
             </strong>
           </div>
 
-          <div>
-            <span>Build</span>
-            <strong>
-              Development
-            </strong>
-          </div>
-
         </div>
 
       </section>
@@ -280,9 +371,22 @@ function About() {
           Developed By
         </h2>
 
-        <p>
-          Sumit Kumar
-        </p>
+        <div className="developer-info">
+
+          <p className="developer-name">
+            Sumit Kumar
+          </p>
+
+          <a
+            href="https://github.com/NOTSUMIT0"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="developer-github"
+          >
+            GitHub: @NOTSUMIT0
+          </a>
+
+        </div>
 
         <p>
           PDF2AI was built to simplify

@@ -36,7 +36,8 @@ async def convert_pdf(
 
         return {
             "success": True,
-            "markdown": markdown
+            "markdown": markdown,
+            "ocr": len(markdown.strip()) > 0
         }
 
     except Exception as e:

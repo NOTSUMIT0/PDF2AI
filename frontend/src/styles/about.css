@@ -102,3 +102,96 @@
 .tech-card strong {
   color: var(--text-primary);
 }
+
+.developer-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.developer-github {
+  color: #60a5fa;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: 0.2s;
+  margin-bottom: 10px;
+}
+
+.developer-github:hover {
+  color: #93c5fd;
+  text-decoration: underline;
+}
+
+.benefits-card-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 18px;
+
+  margin-top: 20px;
+}
+
+.benefit-card {
+  background: var(--bg-primary);
+
+  border: 1px solid
+    var(--border-color);
+
+  border-radius: 14px;
+
+  padding: 20px;
+
+  transition: all 0.25s ease;
+}
+
+.benefit-card:hover {
+  border-color: var(--accent);
+
+  transform:
+    translateY(-2px);
+}
+
+.benefit-card h3 {
+  color: var(--text-primary);
+
+  margin-bottom: 12px;
+
+  font-size: 1.1rem;
+}
+
+.benefit-card p {
+  color: var(--text-secondary);
+
+  line-height: 1.7;
+
+  margin: 0;
+}
+
+.token-section h2 {
+  margin-bottom: 16px;
+}
+
+.token-section p {
+  color: var(--text-secondary);
+
+  line-height: 1.8;
+}
+
+@media (max-width: 900px) {
+
+  .benefits-card-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .benefits-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
