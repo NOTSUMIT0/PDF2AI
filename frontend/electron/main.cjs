@@ -1,4 +1,4 @@
-const { BrowserWindow, app, } = require("electron");
+const { BrowserWindow, app, globalShortcut, } = require("electron");
 
 const { spawn, } = require("child_process");
 
@@ -44,6 +44,8 @@ function createMainWindow() {
       "../dist/index.html"
     )
   );
+
+  win.webContents.openDevTools();
 
   return win;
 
@@ -144,6 +146,18 @@ app.whenReady().then(() => {
     mainWindow.show();
 
   }, 3000);
+
+  globalShortcut.register(
+    "F12",
+    () => {
+
+      BrowserWindow
+        .getFocusedWindow()
+        ?.webContents
+        .toggleDevTools();
+
+    }
+  );
 
 });
 

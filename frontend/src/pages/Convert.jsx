@@ -213,11 +213,11 @@ function Convert() {
           </div>
 
           <div>
-            2️) Convert With MarkItDown
+            2️) Detect PDF Type
           </div>
 
           <div>
-            3️) Analyze Content
+            3️) OCR + Markdown
           </div>
 
           <div>
@@ -284,8 +284,9 @@ function Convert() {
           </li>
 
           <li>
-            OCR support for scanned
-            PDFs is planned.
+            Scanned PDFs are automatically
+            processed using OCR before
+            Markdown generation.
           </li>
 
         </ul>
@@ -301,9 +302,9 @@ function Convert() {
         </h2>
 
         <div className="workflow-grid">
-
+          
           <div>
-            OCR Support
+            PDF Analysis
           </div>
 
           <div>
@@ -316,6 +317,30 @@ function Convert() {
 
           <div>
             AI Summaries
+          </div>
+
+          <div>
+            Vector Export
+          </div>
+
+          <div>
+            Knowledge Base Builder
+          </div>
+
+          <div>
+            Smart OCR Progress
+          </div>
+
+          <div>
+            Batch Conversion
+          </div>
+
+          <div>
+            AI Summaries
+          </div>
+
+          <div>
+            ZIP Export
           </div>
 
           <div>

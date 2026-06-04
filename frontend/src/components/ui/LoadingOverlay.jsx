@@ -7,6 +7,8 @@ import "../../styles/loading-overlay.css";
 function LoadingOverlay({
   title,
   message,
+  analysis,
+  progress,
 }) {
 
   const { theme } =
@@ -40,15 +42,63 @@ function LoadingOverlay({
           {title}
         </h2>
 
-        <p>
-          {message}
-        </p>
+        <div className="loading-message">
+          {
+            analysis && (
+
+              <div className="analysis-info">
+
+                <div>
+                  Pages:
+                  {" "}
+                  {analysis.pages}
+                </div>
+
+                <div>
+                  Images:
+                  {" "}
+                  {analysis.images}
+                </div>
+
+                <div>
+                  OCR:
+                  {" "}
+                  {
+                    analysis.ocr_required
+                      ? "Required"
+                      : "Not Required"
+                  }
+                </div>
+
+                <div>
+                  ⏱ Estimated Time:
+                  {" "}
+                  {
+                    analysis.estimated_time
+                  }
+                </div>
+
+              </div>
+
+            )
+          }
+
+        </div>
 
         <div className="loading-progress">
 
-          <div className="loading-progress-bar" />
+          <div
+            className="loading-progress-bar"
+            style={{
+              width: `${progress}%`
+            }}
+          />
 
         </div>
+
+        <p className="loading-percent">
+          {progress}%
+        </p>
 
       </div>
 

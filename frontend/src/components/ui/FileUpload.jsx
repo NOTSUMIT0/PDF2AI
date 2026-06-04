@@ -15,6 +15,8 @@ import { getSaveHistory, } from "../../utils/settingsStorage";
 
 import LoadingOverlay from "../ui/LoadingOverlay";
 
+import { analyzePdf } from "../../services/conversionService";
+
 function FileUpload() {
   const inputRef = useRef(null);
 
@@ -72,23 +74,13 @@ function FileUpload() {
 
 const handleConvert = async () => {
 
+  if (converting) return;
+
   if (!file) return;
 
   try {
 
     setConverting(true);
-
-    setTimeout(() => {
-
-      setOverlayTitle(
-        "Processing PDF"
-      );
-
-      setOverlayMessage(
-        "Scanned PDFs may take longer. OCR text recognition is running."
-      );
-
-    }, 3000);
 
     setOverlayTitle(
       "Analyzing Document"
@@ -102,6 +94,56 @@ const handleConvert = async () => {
       "Analyzing Document..."
     );
 
+    setProgress(20);
+
+    const analysisResult =
+      await analyzePdf(file);
+
+    setPdfAnalysis(
+      analysisResult.analysis
+    );
+
+    setProgress(40);
+
+    await new Promise(
+      resolve =>
+        setTimeout(
+          resolve,
+          1500
+        )
+    );
+
+    if (
+      analysisResult.analysis.ocr_required
+    ) {
+
+      setOverlayTitle(
+        "OCR Processing"
+      );
+
+      setOverlayMessage(
+        "Scanned PDF detected. OCR text recognition is running."
+      );
+
+      setProgress(60);
+
+    }
+    else {
+
+      setOverlayTitle(
+        "Extracting Text"
+      );
+
+      setOverlayMessage(
+        "Document contains selectable text. Extracting content."
+      );
+
+    }
+
+    setStatus(
+      "Processing PDF..."
+    );
+
     const result =
       await convertPdf(file);
 
@@ -110,11 +152,21 @@ const handleConvert = async () => {
     );
 
     setOverlayMessage(
-      "Converting document into AI-ready content."
+      "Converting document into AI-ready Markdown."
     );
 
     setStatus(
       "Generating Markdown..."
+    );
+
+    setProgress(80);
+
+    await new Promise(
+      resolve =>
+        setTimeout(
+          resolve,
+          1000
+        )
     );
 
     setMarkdown(
@@ -125,26 +177,31 @@ const handleConvert = async () => {
       getSaveHistory()
     ) {
 
-      saveRecentFile({
+    saveRecentFile({
 
-        id: Date.now(),
+      id: Date.now(),
 
-        name: file.name,
+      name: file.name,
 
-        size: file.size,
+      size: file.size,
 
-        markdown:
-          result.markdown,
+      markdown:
+        result.markdown,
 
-        createdAt:
-          new Date()
-            .toISOString(),
+      analysis:
+        analysisResult.analysis,
 
-      });
+      createdAt:
+        new Date()
+          .toISOString()
+
+    });
 
     }
 
     setConverted(true);
+
+    setProgress(100);
 
     setStatus(
       "Conversion Complete"
@@ -173,6 +230,12 @@ const handleConvert = async () => {
   } finally {
 
     setConverting(false);
+    
+    setTimeout(() => {
+
+      setProgress(0);
+
+    }, 500);
 
   }
 
@@ -253,16 +316,13 @@ const handleConvert = async () => {
 
   const [status, setStatus] = useState("");
 
-  const [overlayTitle,
-  setOverlayTitle] =
-  useState("");
+  const [overlayTitle, setOverlayTitle] = useState("");
 
-  const [overlayMessage,
-    setOverlayMessage] =
-    useState("");
+  const [overlayMessage, setOverlayMessage] = useState("");
 
-  
+  const [ pdfAnalysis, setPdfAnalysis ] = useState(null);
 
+  const [progress, setProgress] = useState(0);
 
   return (
     <>
@@ -450,15 +510,10 @@ const handleConvert = async () => {
       {converting && (
 
       <LoadingOverlay
-
-        title={
-          overlayTitle
-        }
-
-        message={
-          overlayMessage
-        }
-
+        title={overlayTitle}
+        message={overlayMessage}
+        analysis={pdfAnalysis}
+        progress={progress}
       />
 
     )}

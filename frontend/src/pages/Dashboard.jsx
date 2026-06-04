@@ -4,7 +4,7 @@ import FileUpload from "../components/ui/FileUpload";
 
 function Dashboard() {
   return (
-      <div classname="dashboard-container">
+      <div className="dashboard-container">
         <h1 className="dashboard-title">
           Convert Documents Into AI-Ready Content
         </h1>

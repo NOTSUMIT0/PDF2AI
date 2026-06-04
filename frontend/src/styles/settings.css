@@ -242,3 +242,8 @@ input:checked + .slider::before {
 
   margin-bottom: 20px;
 }
+
+.storage-card span {
+  color:
+    var(--text-primary);
+}

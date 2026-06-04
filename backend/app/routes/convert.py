@@ -4,11 +4,57 @@ from app.services.markitdown_service import (
     convert_pdf_to_markdown
 )
 
+from app.services.pdf_analysis import (
+    analyze_pdf
+)
+
 import tempfile
 import os
 import traceback
 
 router = APIRouter()
+
+
+@router.post("/analyze")
+async def analyze_document(
+    file: UploadFile = File(...)
+):
+
+    temp_path = None
+
+    try:
+
+        with tempfile.NamedTemporaryFile(
+            delete=False,
+            suffix=".pdf"
+        ) as temp_file:
+
+            content = await file.read()
+
+            temp_file.write(content)
+
+            temp_path = temp_file.name
+
+        analysis = analyze_pdf(
+            temp_path
+        )
+
+        return {
+
+            "success": True,
+
+            "analysis": analysis
+
+        }
+
+    finally:
+
+        if (
+            temp_path and
+            os.path.exists(temp_path)
+        ):
+            os.remove(temp_path)
+
 
 
 @router.post("/convert")
@@ -36,8 +82,7 @@ async def convert_pdf(
 
         return {
             "success": True,
-            "markdown": markdown,
-            "ocr": len(markdown.strip()) > 0
+            "markdown": markdown
         }
 
     except Exception as e:
@@ -52,5 +97,8 @@ async def convert_pdf(
 
     finally:
 
-        if temp_path and os.path.exists(temp_path):
+        if (
+            temp_path and
+            os.path.exists(temp_path)
+        ):
             os.remove(temp_path)

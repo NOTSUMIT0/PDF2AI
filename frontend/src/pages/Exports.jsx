@@ -6,6 +6,7 @@ import {
 
 import {
   downloadFile,
+  exportJsonFile,
 } from "../utils/exportUtils";
 
 import { useToast }
@@ -204,17 +205,8 @@ function Exports() {
                 <button
                   className="json-btn"
                   onClick={() =>
-                    downloadFile(
-                      JSON.stringify(
-                        file,
-                        null,
-                        2
-                      ),
-                      file.name.replace(
-                        ".pdf",
-                        ".json"
-                      ),
-                      "application/json"
+                    exportJsonFile(
+                      file
                     )
                   }
                 >
