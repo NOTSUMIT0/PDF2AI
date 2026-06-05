@@ -7,7 +7,7 @@ import { convertPdf } from "../../services/conversionService";
 
 import ReactMarkdown from "react-markdown";
 
-import { downloadFile } from "../../utils/exportUtils";
+import { downloadFile, exportJsonFile } from "../../utils/exportUtils";
 
 import {saveRecentFile,} from "../../utils/recentFiles";
 
@@ -78,6 +78,8 @@ const handleConvert = async () => {
 
   if (!file) return;
 
+  setErrorMessage("");
+
   try {
 
     setConverting(true);
@@ -147,6 +149,14 @@ const handleConvert = async () => {
     const result =
       await convertPdf(file);
 
+    if (!result.success) {
+
+      throw new Error(
+        result.error
+      );
+
+    }
+
     setOverlayTitle(
       "Generating Markdown"
     );
@@ -215,19 +225,29 @@ const handleConvert = async () => {
 
   } catch (error) {
 
-    console.error(error);
+  console.error(error);
 
-    setStatus(
-      "Conversion Failed"
-    );
+  setStatus(
+    "Conversion Failed"
+  );
 
-    showToast(
-      "Conversion Failed",
-      "Unable to process document.",
-      "error"
-    );
+  setErrorMessage(
+    error.message
+  );
 
-  } finally {
+  setMarkdown("");
+
+  showToast(
+
+    "Conversion Failed",
+
+    error.message,
+
+    "error"
+
+  );
+
+} finally {
 
     setConverting(false);
     
@@ -247,6 +267,8 @@ const handleConvert = async () => {
     setConverted(false);
 
     setMarkdown("");
+    
+    setErrorMessage("");
 
     if (inputRef.current) {
       inputRef.current.value = "";
@@ -301,15 +323,22 @@ const handleConvert = async () => {
   };
 
   const downloadJson = () => {
-    downloadFile(
-      JSON.stringify(
-        { markdown },
-        null,
-        2
-      ),
-      "document.json",
-      "application/json"
-    );
+
+    exportJsonFile({
+
+      name:
+        file.name,
+
+      size:
+        file.size,
+
+      markdown,
+
+      analysis:
+        pdfAnalysis
+
+    });
+
   };
 
   const [converted, setConverted] = useState(false);
@@ -323,6 +352,8 @@ const handleConvert = async () => {
   const [ pdfAnalysis, setPdfAnalysis ] = useState(null);
 
   const [progress, setProgress] = useState(0);
+
+  const [errorMessage, setErrorMessage] = useState("");
 
   return (
     <>
@@ -413,6 +444,24 @@ const handleConvert = async () => {
             </div>
 
           </div>
+
+          {
+            errorMessage && (
+
+              <div className="error-card">
+
+                <h2>
+                  Conversion Failed
+                </h2>
+
+                <p>
+                  {errorMessage}
+                </p>
+
+              </div>
+
+            )
+          }
 
           {markdown && (
             <div className="markdown-preview">

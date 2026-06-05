@@ -1,4 +1,4 @@
-const { BrowserWindow, app, globalShortcut, } = require("electron");
+const { BrowserWindow, app, } = require("electron");
 
 const { spawn, } = require("child_process");
 
@@ -44,9 +44,7 @@ function createMainWindow() {
       "../dist/index.html"
     )
   );
-
-  win.webContents.openDevTools();
-
+  
   return win;
 
 }
@@ -106,6 +104,7 @@ app.whenReady().then(() => {
           "../backend/run_backend.exe"
         );
 
+        
   backendProcess =
     spawn(
       backendExe,
@@ -115,23 +114,47 @@ app.whenReady().then(() => {
       }
     );
 
-  backendProcess.stdout.on(
-    "data",
-    (data) => {
-      console.log(
-        `[Backend] ${data}`
-      );
-    }
-  );
+
+
+
+
+    
+backendProcess.stdout.on(
+  "data",
+  (data) => {
+
+    console.log(
+      data.toString()
+    );
+
+  }
+);
+
+
+
+
+
 
   backendProcess.stderr.on(
     "data",
     (data) => {
-      console.error(
-        `[Backend Error] ${data}`
+
+      console.log(
+        "\n===== BACKEND ERROR ====="
       );
+
+      console.log(
+        data.toString()
+      );
+
     }
   );
+
+
+
+
+
+
 
   const splash =
   createSplashWindow();
@@ -146,18 +169,6 @@ app.whenReady().then(() => {
     mainWindow.show();
 
   }, 3000);
-
-  globalShortcut.register(
-    "F12",
-    () => {
-
-      BrowserWindow
-        .getFocusedWindow()
-        ?.webContents
-        .toggleDevTools();
-
-    }
-  );
 
 });
 

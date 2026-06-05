@@ -716,3 +716,33 @@ h6 {
 
   line-height: 1.6;
 }
+
+.error-card {
+
+  margin-top: 20px;
+
+  padding: 24px;
+
+  border-radius: 16px;
+
+  border: 1px solid #ef4444;
+
+  background: rgba(239,68,68,.08);
+
+}
+
+.error-card h2 {
+
+  color: #ef4444;
+
+  margin-bottom: 10px;
+
+}
+
+.error-card p {
+
+  color: var(--text-primary);
+
+  line-height: 1.6;
+
+}

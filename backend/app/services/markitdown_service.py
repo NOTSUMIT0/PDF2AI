@@ -10,6 +10,29 @@ from app.services.ocr_service import (
 
 import os
 
+import re
+
+def clean_markdown(markdown):
+
+    markdown = re.sub(
+        r'\(cid:\d+\)',
+        '',
+        markdown
+    )
+
+    markdown = re.sub(
+        r'\|[- ]+\|',
+        '|',
+        markdown
+    )
+
+    markdown = re.sub(
+        r'\n{3,}',
+        '\n\n',
+        markdown
+    )
+
+    return markdown.strip()
 
 def convert_pdf_to_markdown(file_path):
 
@@ -33,9 +56,15 @@ def convert_pdf_to_markdown(file_path):
             working_file
         )
 
-        markdown = (
+        markdown = clean_markdown(
             result.text_content
         )
+
+        if not markdown.strip():
+
+            raise Exception(
+                "No meaningful text could be extracted from this PDF. The document may be empty, corrupted, or contain unsupported content."
+            )
 
         if (
             working_file != file_path

@@ -4,11 +4,7 @@ export const downloadFile = (
   type
 ) => {
 
-  const blob =
-    new Blob(
-      [content],
-      { type }
-    );
+  const blob = new Blob( [content], { type } ); 
 
   const url =
     URL.createObjectURL(
@@ -41,9 +37,19 @@ export const downloadFile = (
 
 };
 
+export const estimateTokens = (
+  text
+) => {
+
+  return Math.ceil(
+    text.length / 4
+  );
+
+};
+
 export const createChunks = (
   markdown,
-  chunkSize = 1000
+  chunkSize = 1500
 ) => {
 
   const chunks = [];
@@ -56,15 +62,25 @@ export const createChunks = (
     i += chunkSize
   ) {
 
+    const content =
+      markdown.slice(
+        i,
+        i + chunkSize
+      );
+
     chunks.push({
 
       id: ++index,
 
-      content:
-        markdown.slice(
-          i,
-          i + chunkSize
-        )
+      tokens:
+        estimateTokens(
+          content
+        ),
+
+      characters:
+        content.length,
+
+      content
 
     });
 
@@ -98,6 +114,11 @@ export const exportJsonFile = (
       images:
         file.analysis?.images || 0,
 
+      token_estimate:
+        estimateTokens(
+          file.markdown
+        ),  
+
       scanned:
         file.analysis?.scanned || false,
 
@@ -112,11 +133,6 @@ export const exportJsonFile = (
           .toISOString()
 
     },
-
-    sections:
-      createSections(
-        file.markdown
-      ),
 
     chunks:
       createChunks(
@@ -141,96 +157,5 @@ export const exportJsonFile = (
     "application/json"
 
   );
-
-};
-
-export const createSections = (
-  markdown
-) => {
-
-  const sections = [];
-
-  const lines =
-    markdown.split("\n");
-
-  let currentTitle =
-    "Introduction";
-
-  let currentContent =
-    [];
-
-  lines.forEach(
-    (line) => {
-
-      const clean =
-        line.trim();
-
-      if (
-        clean &&
-        clean.length < 60 &&
-        !clean.includes("|")
-      ) {
-
-        if (
-          currentContent.length
-        ) {
-
-          sections.push({
-
-            id:
-              sections.length + 1,
-
-            title:
-              currentTitle,
-
-            content:
-              currentContent.join(
-                "\n"
-              )
-
-          });
-
-        }
-
-        currentTitle =
-          clean;
-
-        currentContent =
-          [];
-
-      }
-      else {
-
-        currentContent.push(
-          line
-        );
-
-      }
-
-    }
-  );
-
-  if (
-    currentContent.length
-  ) {
-
-    sections.push({
-
-      id:
-        sections.length + 1,
-
-      title:
-        currentTitle,
-
-      content:
-        currentContent.join(
-          "\n"
-        )
-
-    });
-
-  }
-
-  return sections;
 
 };
