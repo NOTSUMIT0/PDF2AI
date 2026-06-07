@@ -6,6 +6,36 @@ The platform is designed to prepare documents for Large Language Models (LLMs), 
 
 ---
 
+## Problem Statement
+
+Large Language Models such as ChatGPT, Claude, Gemini, and open-source LLMs operate within a limited context window. When PDF documents are directly processed, they often introduce unnecessary formatting, layout artifacts, spacing issues, and redundant metadata that consume valuable tokens.
+
+This results in:
+
+* Increased token usage
+* Higher inference costs
+* Reduced context efficiency
+* Poor document retrieval quality
+* Lower quality AI responses
+
+Traditional PDFs are designed for human readability rather than machine understanding. AI systems perform significantly better when information is provided in a structured and lightweight format.
+
+## Solution
+
+PDF2AI addresses this challenge by converting PDF documents into clean Markdown using Microsoft's MarkItDown engine.
+
+Instead of sending complex PDF structures directly to an AI model, users can transform documents into AI-ready content that is easier to process, search, index, embed, and analyze.
+
+The generated Markdown preserves meaningful document structure while eliminating unnecessary formatting overhead, making it ideal for:
+
+* Large Language Models (LLMs)
+* RAG Pipelines
+* Knowledge Bases
+* Semantic Search Systems
+* AI Agents
+* Vector Databases
+* Enterprise AI Applications
+
 ## Overview
 
 Modern AI systems perform best when working with structured and lightweight text formats rather than raw PDF files.
