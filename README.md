@@ -1,121 +1,168 @@
 # PDF2AI
 
-PDF2AI is a full-stack document conversion platform that transforms PDF files into AI-ready Markdown using Microsoft's MarkItDown engine. The application is designed to help users prepare documents for Large Language Models (LLMs), Retrieval-Augmented Generation (RAG) systems, knowledge bases, and AI-powered workflows.
+PDF2AI is a full-stack AI document conversion platform that transforms PDF files into clean, structured, AI-ready content using Microsoft's MarkItDown engine and OCR technology for scanned documents.
 
-## Problem Statement
+The platform is designed to prepare documents for Large Language Models (LLMs), Retrieval-Augmented Generation (RAG) systems, vector databases, knowledge bases, AI agents, semantic search engines, and modern AI workflows.
 
-Large Language Models such as ChatGPT, Claude, Gemini, and open-source LLMs operate within a limited context window. When PDF documents are directly processed, they often introduce unnecessary formatting, layout artifacts, spacing issues, and redundant metadata that consume valuable tokens.
-
-This results in:
-
-* Increased token usage
-* Higher inference costs
-* Reduced context efficiency
-* Poor document retrieval quality
-* Lower quality AI responses
-
-Traditional PDFs are designed for human readability rather than machine understanding. AI systems perform significantly better when information is provided in a structured and lightweight format.
-
-## Solution
-
-PDF2AI addresses this challenge by converting PDF documents into clean Markdown using Microsoft's MarkItDown engine.
-
-Instead of sending complex PDF structures directly to an AI model, users can transform documents into AI-ready content that is easier to process, search, index, embed, and analyze.
-
-The generated Markdown preserves meaningful document structure while eliminating unnecessary formatting overhead, making it ideal for:
-
-* Large Language Models (LLMs)
-* RAG Pipelines
-* Knowledge Bases
-* Semantic Search Systems
-* AI Agents
-* Vector Databases
-* Enterprise AI Applications
-
-## Benefits
-
-### Reduced Token Consumption
-
-Markdown is significantly lighter than raw document formats and helps maximize the available context window of AI models.
-
-### Better AI Understanding
-
-Structured headings, lists, tables, and sections improve comprehension and response quality.
-
-### Improved Retrieval Accuracy
-
-Clean Markdown enhances chunking, embedding generation, and semantic search performance in RAG systems.
-
-### Faster AI Workflows
-
-AI-ready content reduces preprocessing requirements and accelerates document ingestion pipelines.
-
-### Developer Friendly
-
-Export content as Markdown, TXT, or JSON for integration into custom AI applications and automation workflows.
+---
 
 ## Overview
 
-Modern AI systems perform best when working with structured and lightweight text formats. PDF2AI simplifies the conversion process by transforming PDF documents into clean Markdown while preserving document structure whenever possible.
+Modern AI systems perform best when working with structured and lightweight text formats rather than raw PDF files.
 
-The platform provides a complete workflow including document upload, conversion, analytics, search, export management, history tracking, and user preferences.
+PDF2AI converts PDFs into AI-ready Markdown, TXT, and RAG-friendly JSON formats while preserving meaningful document structure and minimizing unnecessary formatting overhead.
+
+The platform provides a complete workflow including:
+
+* PDF Upload
+* OCR Processing
+* Document Analysis
+* Markdown Generation
+* RAG Export
+* Analytics Dashboard
+* Conversion History
+* Desktop Application Support
+
+---
+
+## Why PDF2AI?
+
+Large Language Models such as ChatGPT, Claude, Gemini, DeepSeek, Llama, and Mistral operate within limited context windows.
+
+Direct PDF ingestion often introduces:
+
+* Layout artifacts
+* Formatting noise
+* Unnecessary metadata
+* Broken spacing
+* Increased token consumption
+
+This results in:
+
+* Higher inference costs
+* Reduced context efficiency
+* Poor retrieval quality
+* Lower response accuracy
+
+PDF2AI solves this problem by generating structured, AI-friendly content optimized for modern AI systems.
+
+---
 
 ## Key Features
 
-### Document Conversion
+### PDF Conversion
 
 * PDF to Markdown conversion
 * Powered by Microsoft MarkItDown
-* Drag and drop file upload
-* File validation and size checking
-* Conversion status tracking
+* FastAPI backend architecture
+* Drag-and-drop upload support
+* Large file handling
+* Conversion progress tracking
+
+### OCR Support
+
+* OCRmyPDF integration
+* Automatic scanned PDF detection
+* Image-based PDF processing
+* Text extraction from scanned documents
+* OCR status reporting
+* Seamless OCR workflow
 
 ### AI-Ready Output
 
 * Clean Markdown generation
-* Optimized for LLM workflows
-* Suitable for RAG pipelines
+* Structured document formatting
+* Preserved headings and sections
+* AI workflow optimization
 * Knowledge base preparation
-* AI content processing
+* Semantic search preparation
+
+### RAG-Ready JSON Export
+
+Generate structured JSON exports suitable for:
+
+* LangChain
+* LlamaIndex
+* ChromaDB
+* Pinecone
+* Weaviate
+* Qdrant
+* Vector Database Pipelines
+* Knowledge Base Systems
+
+Example:
+
+```json
+{
+  "document_name": "document.pdf",
+  "metadata": {
+    "pages": 10,
+    "token_estimate": 2500
+  },
+  "chunks": [
+    {
+      "id": 1,
+      "tokens": 350,
+      "content": "..."
+    }
+  ]
+}
+```
 
 ### Export Options
 
 * Markdown (.md)
 * Plain Text (.txt)
 * JSON (.json)
-* One-click clipboard copy
+* Clipboard Copy
+* RAG-ready chunk export
 
-### File Management
+### Document Analytics
 
-* Recent file history
-* Search through converted documents
-* Open and review converted content
-* Local document storage
-* File deletion and management
+* Total Characters
+* Word Count
+* Token Estimation
+* Reading Time
+* Average Words Per File
+* Recent Document Tracking
+* Conversion Statistics
 
-### Analytics
+### Recent Files Management
 
-* Document statistics
-* Word count
-* Character count
-* Estimated token count
-* Reading time estimation
-* Conversion insights
+* Conversion history
+* Search functionality
+* Local storage persistence
+* Quick file access
+* Document preview support
+
+### Desktop Application
+
+* Electron Desktop Application
+* Windows Installer
+* Native Desktop Experience
+* Offline Processing
+* Local Backend Integration
 
 ### User Experience
 
-* Responsive interface
-* Dark and Light themes
-* Toast notifications
-* Persistent settings
-* Modern dashboard design
+* Modern Dashboard
+* Dark Theme
+* Light Theme
+* Responsive Layout
+* Toast Notifications
+* Animated Processing Overlay
+* OCR Progress Display
+* Improved Export Center
 
 ### Privacy & Security
 
-* Local storage for conversion history
-* No cloud storage by default
-* User-controlled data management
-* Secure document processing
+* Local document processing
+* No cloud storage requirement
+* User-controlled data
+* Local conversion history
+* Secure file handling
+
+---
 
 ## Technology Stack
 
@@ -131,140 +178,43 @@ The platform provides a complete workflow including document upload, conversion,
 ### Backend
 
 * FastAPI
-* Uvicorn
 * Python
+* Uvicorn
 
 ### Conversion Engine
 
 * Microsoft MarkItDown
 
+### OCR Engine
+
+* OCRmyPDF
+* Tesseract OCR
+
+### Desktop Application
+
+* Electron
+* Electron Builder
+
 ### Storage
 
 * Browser LocalStorage
 
-## Project Structure
-
-```text
-PDF2AI/
-│
-├── backend/
-│   ├── app/
-│   │   ├── models/
-│   │   ├── routes/
-│   │   ├── services/
-│   │   └── utils/
-│   │
-│   ├── tests/
-│   ├── main.py
-│   └── requirements.txt
-│
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── contexts/
-│   │   ├── pages/
-│   │   ├── services/
-│   │   ├── styles/
-│   │   └── utils/
-│
-├── docs/
-├── designs/
-└── README.md
-```
-
-## Installation
-
-### Clone Repository
-
-```bash
-git clone https://github.com/yourusername/pdf2ai.git
-
-cd pdf2ai
-```
-
-## Backend Setup
-
-Navigate to backend directory:
-
-```bash
-cd backend
-```
-
-Create virtual environment:
-
-```bash
-python -m venv .venv
-```
-
-Activate virtual environment:
-
-Windows PowerShell:
-
-```powershell
-.\.venv\Scripts\Activate.ps1
-```
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-Run backend server:
-
-```bash
-uvicorn main:app --reload
-```
-
-Backend API:
-
-```text
-http://127.0.0.1:8000
-```
-
-Swagger Documentation:
-
-```text
-http://127.0.0.1:8000/docs
-```
-
-## Frontend Setup
-
-Navigate to frontend:
-
-```bash
-cd frontend
-```
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Run development server:
-
-```bash
-npm run dev
-```
-
-Frontend:
-
-```text
-http://localhost:5173
-```
+---
 
 ## Application Workflow
 
-1. Upload a PDF document.
-2. Validate file type and size.
-3. Send document to FastAPI backend.
-4. Convert PDF using Microsoft MarkItDown.
-5. Generate structured Markdown.
-6. Display conversion results.
-7. Analyze document content.
-8. Export in desired format.
-9. Store conversion history locally.
+1. Upload PDF document
+2. Analyze PDF structure
+3. Detect scanned or text-based PDF
+4. Apply OCR if required
+5. Convert using MarkItDown
+6. Generate Markdown content
+7. Analyze document statistics
+8. Create AI-ready exports
+9. Save conversion history
+10. Export Markdown, TXT, or JSON
+
+---
 
 ## Supported Formats
 
@@ -278,53 +228,171 @@ http://localhost:5173
 * Text (.txt)
 * JSON (.json)
 
+---
+
+## RAG Workflow
+
+PDF2AI's JSON export is designed to simplify Retrieval-Augmented Generation workflows.
+
+Typical pipeline:
+
+PDF → PDF2AI → JSON Chunks → Embeddings → Vector Database → LLM
+
+Supported systems include:
+
+* ChromaDB
+* Pinecone
+* Weaviate
+* Qdrant
+* FAISS
+* LangChain
+* LlamaIndex
+
+---
+
 ## Current Version
 
-Version: 1.0.0
+### Version 1.1.1
 
-### Included
+Included Features:
 
-* PDF conversion
-* Markdown preview
-* Export system
-* Recent files
-* Search
-* Analytics
-* Settings
-* Theme support
-* About page
-* Conversion center
+* PDF Conversion
+* OCR Support
+* Markdown Preview
+* JSON Export
+* RAG-Ready Chunk Export
+* Recent Files Management
+* Search Functionality
+* Conversion Analytics
+* Conversion Center
+* Export Center
+* Settings Page
+* About Page
+* Dark Theme
+* Light Theme
+* Electron Desktop Application
+* Windows Installer
+* Processing Overlay
+* Document Analysis
+
+---
 
 ## Roadmap
 
-### Version 1.1
+### Version 1.2
 
-* OCR support
-* Batch conversion
-* ZIP exports
-* AI summaries
-* Custom confirmation dialogs
-* Enhanced analytics
+* Batch PDF Conversion
+* ZIP Export Package
+* AI Summaries
+* Direct ChromaDB Export
+* Direct Pinecone Export
+* Knowledge Base Builder
 
 ### Future Releases
 
-* Vector database export
-* Knowledge base builder
-* Document comparison
-* Advanced search
-* Cloud synchronization
+* Semantic Search
+* Document Comparison
+* Auto Updates
+* Cloud Synchronization
+* Team Workspaces
+* Advanced AI Processing
 
-## Acknowledgements
+---
 
-This project uses Microsoft's MarkItDown library for document conversion and processing.
+## Installation
 
-MarkItDown is designed to transform documents into Markdown suitable for AI and LLM workflows.
+### Clone Repository
+
+```bash
+git clone https://github.com/NOTSUMIT0/PDF2AI.git
+
+cd PDF2AI
+```
+
+### Backend
+
+```bash
+cd backend
+
+python -m venv .venv
+
+.\.venv\Scripts\activate
+
+pip install -r requirements.txt
+
+uvicorn main:app --reload
+```
+
+Backend URL:
+
+```text
+http://127.0.0.1:8000
+```
+
+Swagger Docs:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+### Frontend
+
+```bash
+cd frontend
+
+npm install
+
+npm run dev
+```
+
+Frontend URL:
+
+```text
+http://localhost:5173
+```
+
+### Desktop Application
+
+```bash
+cd frontend
+
+npm install
+
+npm run build
+
+npm run dist-electron
+```
+
+Generated installer:
+
+```text
+frontend/release/PDF2AI Setup x.x.x.exe
+```
+
+---
 
 ## Author
 
 Sumit Kumar
 
-PDF2AI was developed to simplify document preparation for AI systems, modern knowledge workflows, and retrieval-based applications.
+PDF2AI was built to simplify document preparation for AI systems, retrieval workflows, vector databases, and modern knowledge management pipelines.
+
+---
+
+## Acknowledgements
+
+Special thanks to:
+
+* Microsoft MarkItDown
+* FastAPI
+* OCRmyPDF
+* Tesseract OCR
+* Electron
+* React
+
+for powering the technologies behind PDF2AI.
+
+---
 
 ## License
 
