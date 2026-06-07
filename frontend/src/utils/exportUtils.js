@@ -49,6 +49,7 @@ export const estimateTokens = (
 
 export const createChunks = (
   markdown,
+  documentName,
   chunkSize = 1500
 ) => {
 
@@ -70,7 +71,10 @@ export const createChunks = (
 
     chunks.push({
 
-      id: ++index,
+      chunk_id:
+        ++index,
+
+      content,
 
       tokens:
         estimateTokens(
@@ -80,7 +84,18 @@ export const createChunks = (
       characters:
         content.length,
 
-      content
+      metadata: {
+
+        source:
+          documentName,
+
+        chunk_number:
+          index,
+
+        generated_by:
+          "PDF2AI"
+
+      }
 
     });
 
@@ -134,9 +149,36 @@ export const exportJsonFile = (
 
     },
 
+    rag_export: {
+
+      compatible_with: [
+
+        "LangChain",
+
+        "LlamaIndex",
+
+        "ChromaDB",
+
+        "FAISS",
+
+        "Qdrant",
+
+        "Pinecone"
+
+      ],
+
+      chunk_strategy:
+        "fixed_length",
+
+      embedding_model:
+        null
+
+    },
+
     chunks:
       createChunks(
-        file.markdown
+        file.markdown,
+        file.name
       )
 
   };

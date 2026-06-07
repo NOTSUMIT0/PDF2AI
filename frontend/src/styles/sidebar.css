@@ -97,7 +97,7 @@
 }
 
 .sidebar a.active {
-  background: var(--accent);
+  background: #FFA500;
 
   color: rgb(56, 53, 53);
 }

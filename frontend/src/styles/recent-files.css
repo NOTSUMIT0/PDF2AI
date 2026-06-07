@@ -27,9 +27,6 @@
   transition: all 0.2s ease;
 }
 
-.recent-actions button:hover {
-  background-color: rgb(71, 69, 69);
-}
 
 .recent-search {
   margin: 24px 0;
@@ -91,19 +88,40 @@
   gap: 10px;
 }
 
-.open-btn {
-  background: #2563eb;
-  color: white;
-}
-
-.download-btn {
-  background: #16a34a;
-  color: white;
-}
-
+.open-btn,
+.download-btn,
 .delete-btn {
-  background: #dc2626;
+
+  min-width: 72px;
+
+  height: 40px;
+
+  border: 1px solid #3a3a3a;
+
+  border-radius: 10px;
+
+  background: #2a2a2a;
+
+  color: #ececec;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+
+}
+
+.open-btn:hover,
+.download-btn:hover,
+.delete-btn:hover {
+
+  background: #FFA500;
+
+  border-color: #FFA500;
+
   color: white;
+
 }
 
 .recent-actions button {

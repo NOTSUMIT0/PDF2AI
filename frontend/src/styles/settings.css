@@ -151,11 +151,7 @@
 
 .active-theme {
   border: 2px solid
-    var(--accent);
-
-  box-shadow:
-    0 0 20px
-    rgba(59,130,246,0.25);
+    #FFA500;
 }
 
 .switch {
@@ -205,7 +201,7 @@
 }
 
 input:checked + .slider {
-  background: #3b82f6;
+  background: #FFA500;
 }
 
 input:checked + .slider::before {

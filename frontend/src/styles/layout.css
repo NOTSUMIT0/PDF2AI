@@ -1,5 +1,11 @@
 body {
-  background: var(--bg-primary);
+
+  background:
+    var(--bg-primary);
+
+  color:
+    var(--text-primary);
+
 }
 
 .app-layout {

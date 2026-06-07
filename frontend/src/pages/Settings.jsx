@@ -224,46 +224,6 @@ const handleClearHistory = () => {
 
       </section>
 
-      {/* About */}
-
-      <section className="settings-section">
-
-        <h2>
-          About PDF2AI
-        </h2>
-
-        <div className="about-grid">
-
-          <div>
-            <span>Version</span>
-            <strong>1.0.0</strong>
-          </div>
-
-          <div>
-            <span>Frontend</span>
-            <strong>
-              React + Vite
-            </strong>
-          </div>
-
-          <div>
-            <span>Backend</span>
-            <strong>
-              FastAPI
-            </strong>
-          </div>
-
-          <div>
-            <span>Converter</span>
-            <strong>
-              MarkItDown
-            </strong>
-          </div>
-
-        </div>
-
-      </section>
-
     </div>
   );
 }

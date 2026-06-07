@@ -1,4 +1,5 @@
 :root {
+
   --bg-primary: #f8fafc;
   --bg-surface: #ffffff;
 
@@ -7,39 +8,46 @@
 
   --border-color: #e2e8f0;
 
-  --accent: #2563eb;
-  --accent-hover: #1d4ed8;
+  --accent: #FFA500;
+  --accent-hover: #FFA500;
 
   --sidebar-width: 240px;
 
   --radius-md: 10px;
   --radius-lg: 12px;
+
 }
 
-[data-theme="dark"] {
-  --bg-primary: #0f172a;
-
-  --bg-surface: #111827;
-
-  --text-primary: #f8fafc;
-
-  --text-secondary: #94a3b8;
-
-  --border-color: #334155;
-
-  --accent: #3b82f6;
-}
-
-/* Below section can be deleted or instead of above dark mode these below can be replaced with */
+/* ChatGPT-style dark mode */
 
 [data-theme="dark"] {
-  --text-primary: #ffffff;
 
-  --text-secondary: #94a3b8;
+  --bg-primary: #212121;
+
+  --bg-surface: #171717;
+
+  --text-primary: #ececec;
+
+  --text-secondary: #a1a1aa;
+
+  --border-color: #3a3a3a;
+
+  --accent: #FFA500;
+
+  --accent-hover: #FFA500;
+
 }
 
 [data-theme="light"] {
+
+  --bg-primary: #f8fafc;
+
+  --bg-surface: #ffffff;
+
   --text-primary: #0f172a;
 
   --text-secondary: #64748b;
+
+  --border-color: #e2e8f0;
+
 }

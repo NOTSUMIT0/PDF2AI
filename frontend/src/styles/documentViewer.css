@@ -42,7 +42,7 @@
 .back-btn {
   border: none;
 
-  background: #2563eb;
+  background: #2a2a2a;
 
   color: white;
 
@@ -60,10 +60,5 @@
 }
 
 .back-btn:hover {
-  background: #1d4ed8;
-}
-
-.arrow {
-  padding: 10px 18px;
-  margin-bottom: 24px;
+  background: #FFA500;
 }

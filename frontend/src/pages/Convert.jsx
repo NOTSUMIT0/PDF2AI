@@ -63,16 +63,20 @@ function Convert() {
       totalWords / 200
     );
 
-  const largestFile =
-    files.length > 0
-      ? files.reduce(
-          (largest, current) =>
-            current.size >
-            largest.size
-              ? current
-              : largest
-        )
-      : null;    
+const recentFile =
+  files.length > 0
+    ? files.reduce(
+        (latest, current) =>
+          new Date(
+            current.createdAt
+          ) >
+          new Date(
+            latest.createdAt
+          )
+            ? current
+            : latest
+      )
+    : null;   
 
   return (
     <div className="convert-page">
@@ -181,13 +185,13 @@ function Convert() {
           <div>
 
             <span>
-              Largest Document
+              Recent Document Uploaded
             </span>
 
             <h3>
               {
-                largestFile
-                  ? largestFile.name
+                recentFile
+                  ? recentFile.name
                   : "None"
               }
             </h3>
@@ -243,15 +247,15 @@ function Convert() {
           </div>
 
           <div>
-            Output: Markdown
+            Output: Markdown  (AI-ready format for ChatGPT, Claude, Gemini and Perplexity.)
           </div>
 
           <div>
-            Output: TXT
+            Output: TXT (Plain text format for notes, search indexing and lightweight processing.)
           </div>
 
           <div>
-            Output: JSON
+            Output: JSON (RAG-ready and support vector database workflows.)
           </div>
 
         </div>
@@ -289,69 +293,30 @@ function Convert() {
             Markdown generation.
           </li>
 
+          <li>
+            AI JSON exports are RAG-ready
+            and support vector database
+            workflows.
+          </li>
+
+          <li>
+            Markdown exports reduce token
+            usage when working with AI.
+          </li>
+
+          <li>
+            Structured documents create
+            cleaner chunks for semantic
+            search.
+          </li>
+
+          <li>
+            Compatible with ChatGPT,
+            Claude, Gemini, LangChain and
+            LlamaIndex workflows.
+          </li>
+
         </ul>
-
-      </section>
-
-      {/* Roadmap */}
-
-      <section className="convert-section">
-
-        <h2>
-          Coming Soon
-        </h2>
-
-        <div className="workflow-grid">
-          
-          <div>
-            PDF Analysis
-          </div>
-
-          <div>
-            Batch Conversion
-          </div>
-
-          <div>
-            ZIP Exports
-          </div>
-
-          <div>
-            AI Summaries
-          </div>
-
-          <div>
-            Vector Export
-          </div>
-
-          <div>
-            Knowledge Base Builder
-          </div>
-
-          <div>
-            Smart OCR Progress
-          </div>
-
-          <div>
-            Batch Conversion
-          </div>
-
-          <div>
-            AI Summaries
-          </div>
-
-          <div>
-            ZIP Export
-          </div>
-
-          <div>
-            Vector Export
-          </div>
-
-          <div>
-            Knowledge Base Builder
-          </div>
-
-        </div>
 
       </section>
 

@@ -133,6 +133,8 @@ function About() {
 
           <div>✓ PDF To Markdown</div>
 
+          <div>✓ OCR Support</div>
+
           <div>✓ AI Ready Output</div>
 
           <div>✓ Recent File History</div>
@@ -142,6 +144,12 @@ function About() {
           <div>✓ Search Documents</div>
 
           <div>✓ Privacy First Design</div>
+
+          <div>✓ Scanned PDF Support</div>
+
+          <div>✓ RAG Knowledge Base Export</div>
+
+          <div>✓ AI-Ready JSON Export</div>
 
         </div>
 
@@ -316,7 +324,7 @@ function About() {
 
           <div>
             <span>Version</span>
-            <strong>1.0.0</strong>
+            <strong>1.1.1</strong>
           </div>
 
           <div>
@@ -342,12 +350,12 @@ function About() {
       <section className="about-section">
 
         <h2>
-          Roadmap
+          Coming Soon
         </h2>
 
         <div className="feature-grid">
 
-          <div>✓ OCR Support</div>
+          <div>✓ Local AI Chat With Documents</div>
 
           <div>✓ Batch Conversion</div>
 

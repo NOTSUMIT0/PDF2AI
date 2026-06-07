@@ -34,3 +34,6 @@ frontend/release/
 
 # Python cache
 *.pyc
+
+frontend/backend/run_backend.exe
+

@@ -96,11 +96,13 @@ h6 {
 }
 
 [data-theme="dark"] .toast {
+
   background:
-    #0f172a;
+    #2a2a2a;
 
   border:
-    1px solid #334155;
+    1px solid #3a3a3a;
+
 }
 
 [data-theme="dark"] .toast-title {
