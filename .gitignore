@@ -1,0 +1,46 @@
+node_modules/
+dist/
+.vscode/
+
+frontend/node_modules/
+frontend/dist/
+
+backend/.venv/
+backend/__pycache__/
+backend/*.pyc
+
+# Python
+backend/.venv/
+backend/__pycache__/
+backend/build/
+backend/dist/
+
+# PyInstaller
+*.spec.bak
+
+# Electron
+frontend/node_modules/
+frontend/dist/
+frontend/release/
+
+# Executables
+*.exe
+
+# Logs
+*.log
+
+# VS Code
+.vscode/
+
+# Python cache
+*.pyc
+
+frontend/backend/run_backend.exe
+
+.env
+
+backend/.env
+
+backend/runtime/
+backend/.venv/
+backend/__pycache__/

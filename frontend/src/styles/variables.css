@@ -1,0 +1,53 @@
+:root {
+
+  --bg-primary: #f8fafc;
+  --bg-surface: #ffffff;
+
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+
+  --border-color: #e2e8f0;
+
+  --accent: #FFA500;
+  --accent-hover: #FFA500;
+
+  --sidebar-width: 240px;
+
+  --radius-md: 10px;
+  --radius-lg: 12px;
+
+}
+
+/* ChatGPT-style dark mode */
+
+[data-theme="dark"] {
+
+  --bg-primary: #212121;
+
+  --bg-surface: #171717;
+
+  --text-primary: #ececec;
+
+  --text-secondary: #a1a1aa;
+
+  --border-color: #3a3a3a;
+
+  --accent: #FFA500;
+
+  --accent-hover: #FFA500;
+
+}
+
+[data-theme="light"] {
+
+  --bg-primary: #f8fafc;
+
+  --bg-surface: #ffffff;
+
+  --text-primary: #0f172a;
+
+  --text-secondary: #64748b;
+
+  --border-color: #e2e8f0;
+
+}

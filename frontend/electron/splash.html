@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+
+<style>
+
+body{
+    margin:0;
+
+    background:#171717;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    height:100vh;
+
+    overflow:hidden;
+
+    font-family:'Segoe UI',sans-serif;
+}
+
+.container{
+
+    text-align:center;
+
+    padding:40px;
+
+}
+
+.logo{
+
+    width:180px;
+
+    height:180px;
+
+    animation:spin 3s linear infinite;
+
+}
+
+.title{
+
+    margin-top:30px;
+
+    color:#ffffff;
+
+    font-size:42px;
+
+    font-weight:700;
+
+}
+
+.subtitle{
+
+    margin-top:10px;
+
+    color:#a1a1aa;
+
+    font-size:18px;
+
+}
+
+.loading{
+
+    margin-top:25px;
+
+    color:#FFA500;
+
+    font-size:16px;
+
+    font-weight:500;
+
+}
+
+@keyframes spin{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<img
+src="logo.png"
+class="logo"
+/>
+
+<div class="title">
+Altair
+</div>
+
+<div class="subtitle">
+AI Document Conversion Platform
+</div>
+
+<div class="loading">
+Initializing AI Engine...
+</div>
+
+</div>
+
+</body>
+
+</html>
