@@ -162,11 +162,6 @@ backendProcess.stdout.on(
   );
 
 
-
-
-
-
-
   const splash =
   createSplashWindow();
 
