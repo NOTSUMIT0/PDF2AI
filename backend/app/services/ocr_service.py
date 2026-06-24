@@ -8,8 +8,14 @@ import ocrmypdf
 def get_runtime_paths():
 
     if getattr(sys, "frozen", False):
-        base_dir = sys._MEIPASS
+
+        base_dir = os.path.join(
+            sys._MEIPASS,
+            "runtime"
+        )
+
     else:
+
         base_dir = os.path.abspath(
             os.path.join(
                 os.path.dirname(__file__),

@@ -395,19 +395,12 @@ const handleConvert = async () => {
       resolve =>
         setTimeout(
           resolve,
-          1500
-        )
-    );
-
-    await new Promise(
-      resolve =>
-        setTimeout(
-          resolve,
-          1000
+          300
         )
     );
 
     const allResults = [];
+    const analysesMap = {};
 
     for (
       let i = 0;
@@ -445,55 +438,6 @@ const handleConvert = async () => {
 
       ].includes(extension);
 
-      let progressInterval = null;
-
-      try {
-
-        if (
-          isAudio ||
-          isVideo
-        ) {
-
-          progressInterval =
-            startFakeProgress();
-
-        }
-
-        const result =
-          await convertDocument(
-            currentFile
-          );
-
-        if (!result.success) {
-
-          throw new Error(
-            result.error
-          );
-
-        }
-
-        allResults.push(
-          ...result.documents.map(
-            doc => ({
-              ...doc,
-              size: currentFile.size
-            })
-          )
-        );
-
-      }
-      finally {
-
-        if (progressInterval) {
-
-          clearInterval(
-            progressInterval
-          );
-
-        }
-
-      }
-      
       setCurrentFileName(
         currentFile.name
       );
@@ -502,18 +446,6 @@ const handleConvert = async () => {
         await analyzeDocument(
           currentFile
         );
-
-      setPdfAnalysis(
-        analysisResult.analysis
-      );
-
-      setFileAnalyses(
-        prev => ({
-          ...prev,
-          [currentFile.name]:
-            analysisResult.analysis
-        })
-      );
 
       if (isAudio) {
 
@@ -564,6 +496,78 @@ const handleConvert = async () => {
         setOverlayMessage(
           currentFile.name
         );
+
+      }  
+
+      setPdfAnalysis(
+        analysisResult.analysis
+      );
+
+      analysesMap[currentFile.name] =
+        analysisResult.analysis;
+
+      setFileAnalyses(
+        prev => ({
+          ...prev,
+          [currentFile.name]:
+            analysisResult.analysis
+        })
+      );
+
+      await new Promise(
+        resolve =>
+          setTimeout(
+            resolve,
+            100
+          )
+      );
+
+      let progressInterval = null;
+
+      try {
+
+        if (
+          isAudio ||
+          isVideo
+        ) {
+
+          progressInterval =
+            startFakeProgress();
+
+        }
+
+        const result =
+          await convertDocument(
+            currentFile
+          );
+
+        if (!result.success) {
+
+          throw new Error(
+            result.error
+          );
+
+        }
+
+        allResults.push(
+          ...result.documents.map(
+            doc => ({
+              ...doc,
+              size: currentFile.size
+            })
+          )
+        );
+
+      }
+      finally {
+
+        if (progressInterval) {
+
+          clearInterval(
+            progressInterval
+          );
+
+        }
 
       }
 
@@ -640,7 +644,7 @@ const handleConvert = async () => {
             document.markdown,
 
           analysis:
-            fileAnalyses[
+            analysesMap[
               document.name
             ] || {},
 
@@ -820,7 +824,7 @@ const handleConvert = async () => {
   const activeMarkdown =
     currentResults
       .map(
-        doc => doc.markdown
+        doc => doc.markdown || ""
       )
       .join("\n");
 

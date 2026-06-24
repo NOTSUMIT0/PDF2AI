@@ -46,7 +46,10 @@ a = Analysis(
         "pdfplumber",
         "pandas",
         "openpyxl",
-        "pptx"
+        "pptx",
+        "python_docx",
+        "ocrmypdf",
+        "markitdown",
     ],
 
     hookspath=[],

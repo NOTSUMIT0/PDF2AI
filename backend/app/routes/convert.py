@@ -270,6 +270,61 @@ async def analyze_document(
                 }
 
             }
+        
+        if extension == ".xlsx":
+
+            return {
+
+                "success": True,
+
+                "analysis": {
+
+                    "pages": "Spreadsheet",
+
+                    "images": "N/A",
+
+                    "scanned": False,
+
+                    "ocr_required": False,
+
+                    "estimated_time":
+                        "5-15 sec"
+
+                }
+
+            }
+
+        if extension in [
+
+            ".png",
+            ".jpg",
+            ".jpeg",
+            ".bmp",
+            ".webp",
+            ".tiff"
+
+        ]:
+
+            return {
+
+                "success": True,
+
+                "analysis": {
+
+                    "pages": "Image",
+
+                    "images": 1,
+
+                    "scanned": True,
+
+                    "ocr_required": True,
+
+                    "estimated_time":
+                        "5-15 sec"
+
+                }
+
+            }
 
         analysis = analyze_pdf(
             temp_path
@@ -403,6 +458,14 @@ async def convert_document(
                     ".m4a",
                     ".flac",
                     ".ogg",
+                    ".xlsx",
+                    ".xls",
+                    ".png",
+                    ".jpg",
+                    ".jpeg",
+                    ".bmp",
+                    ".tiff",
+                    ".webp",
 
                 ]
 

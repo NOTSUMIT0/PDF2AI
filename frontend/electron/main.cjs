@@ -1,5 +1,16 @@
 const { BrowserWindow, app, } = require("electron");
 
+const gotLock =
+  app.requestSingleInstanceLock();
+
+if (!gotLock) {
+
+  app.quit();
+
+  process.exit(0);
+
+}
+
 const { spawn, } = require("child_process");
 
 const path = require("path");
@@ -180,7 +191,16 @@ app.on(
       backendProcess
     ) {
 
-      backendProcess.kill();
+      if (
+        backendProcess &&
+        !backendProcess.killed
+      ) {
+
+        backendProcess.kill(
+          "SIGTERM"
+        );
+
+      }
 
     }
 

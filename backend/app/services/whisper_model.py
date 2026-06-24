@@ -4,7 +4,10 @@ import os
 
 if getattr(sys, "frozen", False):
 
-    BASE_DIR = sys._MEIPASS
+    BASE_DIR = os.path.join(
+        sys._MEIPASS,
+        "runtime"
+    )
 
 else:
 
@@ -16,7 +19,6 @@ else:
 
 MODEL_PATH = os.path.join(
     BASE_DIR,
-    "runtime",
     "whisper",
     "base.pt"
 )

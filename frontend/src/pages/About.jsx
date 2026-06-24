@@ -2,7 +2,7 @@ import { FaXTwitter } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 
-
+import profileImage from "../assets/profile.jpeg";
 
 function About() {
   return (
@@ -460,7 +460,7 @@ function About() {
       <div className="developer-header">
 
         <img
-          src="/profile.jpeg"
+          src={profileImage}
           alt="Sumit Kumar"
           className="developer-avatar"
         />

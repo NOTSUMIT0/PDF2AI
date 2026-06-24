@@ -7,9 +7,15 @@ import sys
 if getattr(sys, "frozen", False):
 
     pytesseract.pytesseract.tesseract_cmd = os.path.join(
+
         sys._MEIPASS,
+
+        "runtime",
+
         "tesseract",
+
         "tesseract.exe"
+
     )
 
 else:

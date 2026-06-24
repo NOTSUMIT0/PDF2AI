@@ -1,11 +1,9 @@
 from markitdown import MarkItDown
 
+import pdfplumber
+
 from app.services.pdf_detector import (
     is_searchable_pdf
-)
-
-from app.services.ocr_service import (
-    run_ocr
 )
 
 from app.services.ocr_service import (
@@ -83,17 +81,41 @@ def convert_document_to_markdown(
 
         if extension == ".pdf":
 
-            if not is_searchable_pdf(
-                file_path
-            ):
+            if not is_searchable_pdf(file_path):
 
-                print(
-                    "Scanned PDF detected. Running OCR..."
-                )
+                working_file = run_ocr(file_path)
 
-                working_file = run_ocr(
-                    file_path
-                )
+                try:
+
+                    text = ""
+
+                    with pdfplumber.open(
+                        working_file
+                    ) as pdf:
+
+                        for page in pdf.pages:
+
+                            text += (
+                                page.extract_text()
+                                or ""
+                            ) + "\n"
+
+                    return text
+
+                finally:
+
+                    if os.path.exists(
+                        working_file
+                    ):
+                        os.remove(
+                            working_file
+                        )
+
+                
+        print(working_file)
+
+        print("FILE:", working_file)
+        print("EXTENSION:", extension)
 
         md = MarkItDown()
 
