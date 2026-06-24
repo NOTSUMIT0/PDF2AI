@@ -42,5 +42,15 @@ frontend/backend/run_backend.exe
 backend/.env
 
 backend/runtime/
-backend/.venv/
-backend/__pycache__/
+
+
+
+# Electron
+*.blockmap
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
