@@ -9,9 +9,17 @@ def transcribe_video(
     video_path
 ):
 
-    result = model.transcribe(
-        video_path
-    )
+    try:
+
+        result = model.transcribe(
+            video_path
+        )
+
+    except Exception as e:
+
+        raise Exception(
+            f"Video transcription failed: {str(e)}"
+        )
 
     transcript = result["text"]
 

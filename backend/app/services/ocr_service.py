@@ -8,11 +8,8 @@ import ocrmypdf
 def get_runtime_paths():
 
     if getattr(sys, "frozen", False):
-
         base_dir = sys._MEIPASS
-
     else:
-
         base_dir = os.path.abspath(
             os.path.join(
                 os.path.dirname(__file__),
@@ -33,17 +30,10 @@ def get_runtime_paths():
         "gswin64c.exe"
     )
 
-    return (
-        tesseract_path,
-        ghostscript_path
-    )
+    return tesseract_path, ghostscript_path
 
 
 def run_ocr(pdf_path):
-
-    print(
-        "OCR SERVICE UPDATED"
-    )
 
     temp_output = tempfile.NamedTemporaryFile(
         delete=False,
@@ -54,28 +44,23 @@ def run_ocr(pdf_path):
 
     try:
 
-        (
-            tesseract_path,
-            ghostscript_path
-        ) = get_runtime_paths()
-
-        print(
-            "Using Tesseract:",
-            tesseract_path
+        tesseract_path, ghostscript_path = (
+            get_runtime_paths()
         )
 
-        print(
-            "Using Ghostscript:",
-            ghostscript_path
+        print("Using Tesseract:", tesseract_path)
+        print("Using Ghostscript:", ghostscript_path)
+
+        os.environ["OCRMYPDF_TESSERACT"] = tesseract_path
+        os.environ["OCRMYPDF_GS"] = ghostscript_path
+
+        os.environ["PATH"] = (
+            os.path.dirname(tesseract_path)
+            + ";"
+            + os.path.dirname(ghostscript_path)
+            + ";"
+            + os.environ.get("PATH", "")
         )
-
-        os.environ[
-            "OCRMYPDF_TESSERACT"
-        ] = tesseract_path
-
-        os.environ[
-            "OCRMYPDF_GS"
-        ] = ghostscript_path
 
         ocrmypdf.ocr(
             pdf_path,
@@ -90,12 +75,8 @@ def run_ocr(pdf_path):
 
     except Exception as e:
 
-        if os.path.exists(
-            temp_output.name
-        ):
-            os.remove(
-                temp_output.name
-            )
+        if os.path.exists(temp_output.name):
+            os.remove(temp_output.name)
 
         raise Exception(
             f"OCR failed: {str(e)}"

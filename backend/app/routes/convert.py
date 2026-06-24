@@ -341,23 +341,11 @@ async def convert_document(
 
         if extension in audio_extensions:
 
-            transcript = (
+            markdown = (
                 transcribe_audio(
                     temp_path
                 )
             )
-
-            markdown = f"""
-
-        # Audio Transcript
-
-        **File:** {file.filename}
-
-        ---
-
-        {transcript}
-
-        """
 
             return {
 
@@ -556,12 +544,34 @@ async def convert_document(
 
         traceback.print_exc()
 
+        error_text = str(e)
+
+        if "403" in error_text:
+
+            error_text = (
+                "YouTube blocked the request. "
+                "Try again in a few minutes."
+            )
+
+        elif "ffmpeg" in error_text.lower():
+
+            error_text = (
+                "Video processing failed. "
+                "FFmpeg is missing."
+            )
+
+        elif "whisper" in error_text.lower():
+
+            error_text = (
+                "Speech recognition failed."
+            )
+
         return {
 
             "success": False,
 
             "error":
-                str(e)
+                error_text
 
         }
 

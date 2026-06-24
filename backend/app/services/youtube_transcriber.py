@@ -1,6 +1,7 @@
 import tempfile
 import os
 import yt_dlp
+import shutil
 
 from app.services.audio_transcriber import (
     transcribe_audio
@@ -19,51 +20,124 @@ def transcribe_youtube(
 
     ydl_opts = {
 
-        "format":
-            "bestaudio/best",
+        "format": "bestaudio/best",
 
-        "outtmpl":
-            output_template,
+        "outtmpl": output_template,
 
-        "quiet":
-            True,
+        "quiet": True,
 
-        "noplaylist":
-            True,
+        "noplaylist": True,
+
+        "nocheckcertificate": True,
+
+        "geo_bypass": True,
+
+        "extractor_args": {
+
+            "youtube": {
+
+                "player_client": [
+
+                    "android",
+
+                    "ios",
+
+                    "web"
+
+                ]
+
+            }
+
+        },
+
+        "http_headers": {
+
+            "User-Agent":
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/137.0 Safari/537.36"
+
+        }
 
     }
 
-    with yt_dlp.YoutubeDL(
-        ydl_opts
-    ) as ydl:
+    try:
 
-        info = ydl.extract_info(
-            url,
-            download=True
+        with yt_dlp.YoutubeDL(
+            ydl_opts
+        ) as ydl:
+
+            info = ydl.extract_info(
+                url,
+                download=True
+            )
+
+            downloaded_file = None
+
+            for file in os.listdir(temp_dir):
+
+                full_path = os.path.join(
+                    temp_dir,
+                    file
+                )
+
+                if os.path.isfile(full_path):
+
+                    if not file.endswith(
+                        ".json"
+                    ):
+
+                        downloaded_file = full_path
+                        break
+
+            if not downloaded_file:
+
+                raise Exception(
+                    "Downloaded audio file not found."
+                )
+
+    except Exception as e:
+
+        raise Exception(
+            f"YouTube download failed: {str(e)}"
         )
 
-        downloaded_file = ydl.prepare_filename(
-            info
+    try:
+
+        transcript = transcribe_audio(
+            downloaded_file
         )
 
-    transcript = transcribe_audio(
-        downloaded_file
-    )
+    except Exception as e:
+
+        raise Exception(
+            f"YouTube transcription failed: {str(e)}"
+        )
+
+    finally:
+
+        try:
+            os.remove(downloaded_file)
+        except:
+            pass
+
+        try:
+            shutil.rmtree(temp_dir)
+        except:
+            pass
 
     markdown = f"""
 
-# YouTube Transcript
+    # YouTube Transcript
 
-**Title:** {info['title']}
+    - Title: {info.get('title', 'Unknown')}
 
-**Channel:** {info['uploader']}
+    - Channel: {info.get('uploader', 'Unknown')}
 
-**URL:** {url}
+    - URL: {url}
 
----
+    ---
 
-{transcript}
+    {transcript}
 
-"""
+    """
 
     return markdown

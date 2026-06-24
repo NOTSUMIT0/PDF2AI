@@ -198,33 +198,18 @@ const startFakeProgress = () => {
 
   const interval = setInterval(() => {
 
-    current += Math.random() * 5;
-
-      if (current < 90) {
-
-        current += Math.random() * 5;
-
-      }
-      else if (current < 99) {
-
-        current += 0.2;
-
-      }
-      else {
-
-        current = 99;
-
-      }
-
-    setProgress(
-      Math.floor(current)
+    current = Math.min(
+      current + 2,
+      95
     );
+
+    setProgress(current);
 
   }, 800);
 
   return interval;
 
-};  
+}; 
 
 const handleYoutubeConvert =
   async () => {
@@ -235,21 +220,14 @@ const handleYoutubeConvert =
     try {
 
       setConverting(true);
-
       setCurrentFileName("YouTube URL");
 
       setPdfAnalysis({
-
         pages: "YouTube",
-
         images: "N/A",
-
         scanned: false,
-
         ocr_required: false,
-
         estimated_time: "10-60 sec"
-
       });
 
       setOverlayTitle(
@@ -260,23 +238,31 @@ const handleYoutubeConvert =
         "Fetching audio..."
       );
 
-      const interval =
-        startFakeProgress();
+      let interval = null;
 
-      const result =
-        await convertYoutube(
-          youtubeUrl
-        );
+      let result = null;
 
-      console.log(
-        "YouTube Result:",
-        result
-      );
+      try {
 
+        interval = startFakeProgress();
 
-      clearInterval(interval);
+        result =
+          await convertYoutube(
+            youtubeUrl
+          );
 
-      setProgress(100);
+        setProgress(100);
+
+      }
+      finally {
+
+        if (interval) {
+
+          clearInterval(interval);
+
+        }
+
+      }
 
       setYoutubeResults(
         (result.documents || []).map(doc => ({
@@ -352,8 +338,16 @@ const handleYoutubeConvert =
     }
     catch (error) {
 
-      console.error(
-        error
+      console.error(error);
+
+      showToast(
+        "Conversion Failed",
+        error.message,
+        "error"
+      );
+
+      setErrorMessage(
+        error.message
       );
 
     }
@@ -453,13 +447,51 @@ const handleConvert = async () => {
 
       let progressInterval = null;
 
-      if (
-        isAudio ||
-        isVideo
-      ) {
+      try {
 
-        progressInterval =
-          startFakeProgress();
+        if (
+          isAudio ||
+          isVideo
+        ) {
+
+          progressInterval =
+            startFakeProgress();
+
+        }
+
+        const result =
+          await convertDocument(
+            currentFile
+          );
+
+        if (!result.success) {
+
+          throw new Error(
+            result.error
+          );
+
+        }
+
+        allResults.push(
+          ...result.documents.map(
+            doc => ({
+              ...doc,
+              size: currentFile.size
+            })
+          )
+        );
+
+      }
+      finally {
+
+        if (progressInterval) {
+
+          clearInterval(
+            progressInterval
+          );
+
+        }
+
       }
       
       setCurrentFileName(
@@ -553,33 +585,6 @@ const handleConvert = async () => {
           )
       );
  
-      const result =
-        await convertDocument(
-          currentFile
-        );
-      
-      if (progressInterval) {
-
-        clearInterval(
-          progressInterval
-        );
-
-        setProgress(100);
-
-      }  
-
-      if (!result.success) {
-
-        throw new Error(
-          result.error
-        );
-
-      }
-
-      allResults.push(
-        ...result.documents
-      );
-
       setProgress(
         Math.floor(
           (
@@ -629,8 +634,7 @@ const handleConvert = async () => {
             document.name,
 
           size:
-            currentFiles[index]
-              ?.size || 0,
+            document.size || 0,
 
           markdown:
             document.markdown,
@@ -638,7 +642,7 @@ const handleConvert = async () => {
           analysis:
             fileAnalyses[
               document.name
-            ],
+            ] || {},
 
           createdAt:
             new Date()
@@ -1166,11 +1170,16 @@ const handleConvert = async () => {
 
           <button
             className="youtube-btn"
+            disabled={converting}
             onClick={
               handleYoutubeConvert
             }
           >
-            Generate Transcript
+            {
+              converting
+                ? `Generating... ${progress}%`
+                : "Generate Transcript"
+            }
           </button>
 
         </div>
@@ -1460,7 +1469,7 @@ const handleConvert = async () => {
                             {
                               (
                                 (
-                                  currentFiles[index]?.size || 0
+                                  document.size || 0
                                 ) /
                                 1024 /
                                 1024
@@ -1668,7 +1677,7 @@ const handleConvert = async () => {
                                 document.name,
 
                               size:
-                                currentFiles[index]?.size || 0,
+                                document.size || 0,
 
                               markdown:
                                 document.markdown,
