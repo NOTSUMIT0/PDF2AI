@@ -1,8 +1,8 @@
-# PDF2AI
+# Altair
 
-PDF2AI is a full-stack AI document conversion platform that transforms PDF files into clean, structured, AI-ready content using Microsoft's MarkItDown engine and OCR technology for scanned documents.
+Altair is an AI document, media, and knowledge conversion platform that transforms documents, images, audio, video, and YouTube content into clean, structured, AI-ready Markdown, text, and RAG-friendly formats.
 
-The platform is designed to prepare documents for Large Language Models (LLMs), Retrieval-Augmented Generation (RAG) systems, vector databases, knowledge bases, AI agents, semantic search engines, and modern AI workflows.
+Powered by Microsoft's MarkItDown engine, Whisper AI, OCR technology, and a modern Electron desktop application, Altair prepares information for Large Language Models (LLMs), Retrieval-Augmented Generation (RAG), AI agents, vector databases, semantic search, and modern knowledge workflows.
 
 ---
 
@@ -38,20 +38,25 @@ The generated Markdown preserves meaningful document structure while eliminating
 
 ## Overview
 
-Modern AI systems perform best when working with structured and lightweight text formats rather than raw PDF files.
+Altair converts documents and multimedia content into structured AI-ready knowledge while preserving meaningful information and minimizing unnecessary formatting overhead.
 
-PDF2AI converts PDFs into AI-ready Markdown, TXT, and RAG-friendly JSON formats while preserving meaningful document structure and minimizing unnecessary formatting overhead.
+The platform provides an end-to-end workflow including:
 
-The platform provides a complete workflow including:
-
-* PDF Upload
+* Document Upload
+* Image OCR
+* Audio Transcription
+* Video Transcription
+* YouTube Transcription
 * OCR Processing
-* Document Analysis
+* Automatic Document Analysis
 * Markdown Generation
-* RAG Export
-* Analytics Dashboard
-* Conversion History
-* Desktop Application Support
+* TXT Export
+* JSON Export
+* AI Summaries
+* Processing Analytics
+* Token Estimation
+* Desktop Application
+* Local AI-ready Knowledge Export
 
 ---
 
@@ -176,13 +181,17 @@ Example:
 ### User Experience
 
 * Modern Dashboard
-* Dark Theme
-* Light Theme
-* Responsive Layout
-* Toast Notifications
+* Dark / Light Themes
+* Batch Processing
+* Drag and Drop Upload
 * Animated Processing Overlay
-* OCR Progress Display
-* Improved Export Center
+* OCR Progress
+* File Analysis
+* Search
+* Recent Files
+* Export Center
+* Settings
+* About Page
 
 ### Privacy & Security
 
@@ -210,10 +219,17 @@ Example:
 * FastAPI
 * Python
 * Uvicorn
+* OpenAI Whisper
+* yt-dlp
 
 ### Conversion Engine
 
 * Microsoft MarkItDown
+* OCRmyPDF
+* Tesseract OCR
+* Ghostscript
+* FFmpeg
+* OpenAI Whisper
 
 ### OCR Engine
 
@@ -228,35 +244,121 @@ Example:
 ### Storage
 
 * Browser LocalStorage
+* Local File Processing
 
 ---
 
 ## Application Workflow
 
-1. Upload PDF document
-2. Analyze PDF structure
-3. Detect scanned or text-based PDF
-4. Apply OCR if required
-5. Convert using MarkItDown
-6. Generate Markdown content
-7. Analyze document statistics
-8. Create AI-ready exports
-9. Save conversion history
-10. Export Markdown, TXT, or JSON
+1. Upload Document, Image, Audio, Video, or YouTube URL
+2. Analyze File
+3. Detect OCR Requirements
+4. Detect Processing Pipeline
+5. OCR (if required)
+6. Speech Recognition (if required)
+7. Markdown Generation
+8. Document Analysis
+9. Token Estimation
+10. AI Summary Generation
+11. Export Markdown, TXT, or JSON
 
 ---
 
 ## Supported Formats
 
-### Input
+### Documents
 
 * PDF
+* DOCX
+* PPTX
+* XLSX
+* TXT
+* Markdown
+* HTML
+* CSV
 
-### Output
+### Images
+
+* PNG
+* JPG
+* JPEG
+* BMP
+* TIFF
+* WEBP
+
+### Media
+
+* MP3
+* WAV
+* FLAC
+* M4A
+* AAC
+* OGG
+* MP4
+* MOV
+* AVI
+* MKV
+
+### Online Sources
+
+* YouTube URLs
+
+### Outputs
 
 * Markdown (.md)
-* Text (.txt)
+* Plain Text (.txt)
 * JSON (.json)
+
+---
+
+### Image OCR
+
+* OCR for Images
+* Automatic Text Extraction
+* Tesseract OCR Integration
+* Multi-format Image Support
+* AI-ready Markdown Output
+
+---
+
+### Media Transcription
+
+* Audio Transcription
+* Video Transcription
+* Whisper AI
+* Automatic Speech Recognition
+* Timestamp-free Clean Markdown
+
+---
+
+### YouTube Processing
+
+* YouTube URL Support
+* Automatic Audio Extraction
+* AI-ready Transcript Generation
+* Local Processing
+
+---
+
+### AI Features
+
+* AI Summaries
+* Study Notes
+* Interview Preparation
+* Markdown Optimization
+* Token-aware Processing
+
+---
+
+### Smart Analysis
+
+Automatic file analysis before conversion including:
+
+* Page Count
+* Image Count
+* OCR Detection
+* Estimated Processing Time
+* File Statistics
 
 ---
 
@@ -282,50 +384,53 @@ Supported systems include:
 
 ## Current Version
 
-### Version 1.1.1
+### Version 2.0.0
 
-Included Features:
+Included Features
 
-* PDF Conversion
-* OCR Support
-* Markdown Preview
+* Document Conversion
+* Image OCR
+* Audio Transcription
+* Video Transcription
+* YouTube Transcription
+* AI Summaries
+* Markdown Export
+* TXT Export
 * JSON Export
-* RAG-Ready Chunk Export
-* Recent Files Management
-* Search Functionality
-* Conversion Analytics
-* Conversion Center
-* Export Center
-* Settings Page
-* About Page
-* Dark Theme
-* Light Theme
+* RAG Export
+* Search
+* Recent Files
+* Processing Overlay
+* OCR Progress
+* Smart File Analysis
+* Token Analytics
 * Electron Desktop Application
 * Windows Installer
-* Processing Overlay
-* Document Analysis
+* Offline Processing
+* Settings
+* About Page
 
 ---
 
 ## Roadmap
 
-### Version 1.2
+### Version 2.1
 
-* Batch PDF Conversion
-* ZIP Export Package
-* AI Summaries
-* Direct ChromaDB Export
-* Direct Pinecone Export
-* Knowledge Base Builder
+* Batch Folder Conversion
+* ZIP Export
+* Custom AI Prompts
+* Local Embedding Generation
+* ChromaDB Export
+* Pinecone Export
 
 ### Future Releases
 
 * Semantic Search
-* Document Comparison
+* Knowledge Graph
+* Local RAG Chat
+* Plugin System
 * Auto Updates
-* Cloud Synchronization
-* Team Workspaces
-* Advanced AI Processing
+* Cross-platform Support
 
 ---
 
@@ -334,9 +439,9 @@ Included Features:
 ### Clone Repository
 
 ```bash
-git clone https://github.com/NOTSUMIT0/PDF2AI.git
+git clone https://github.com/NOTSUMIT0/Altair.git
 
-cd PDF2AI
+cd Altair
 ```
 
 ### Backend
@@ -383,21 +488,14 @@ http://localhost:5173
 
 ### Desktop Application
 
-```bash
-cd frontend
-
-npm install
-
-npm run build
-
-npm run dist-electron
-```
-
-Generated installer:
-
-```text
-frontend/release/PDF2AI Setup x.x.x.exe
-```
+* Electron Desktop Application
+* Windows Installer
+* Native Windows Integration
+* Offline Processing
+* Bundled OCR Runtime
+* Bundled Whisper Runtime
+* Bundled FFmpeg Runtime
+* No External Dependencies Required
 
 ---
 
@@ -405,7 +503,7 @@ frontend/release/PDF2AI Setup x.x.x.exe
 
 Sumit Kumar
 
-PDF2AI was built to simplify document preparation for AI systems, retrieval workflows, vector databases, and modern knowledge management pipelines.
+Altair was built to simplify AI-ready knowledge preparation for Large Language Models, Retrieval-Augmented Generation (RAG), AI agents, vector databases, semantic search, research workflows, and modern knowledge management systems.
 
 ---
 
@@ -419,8 +517,12 @@ Special thanks to:
 * Tesseract OCR
 * Electron
 * React
+* OpenAI Whisper
+* FFmpeg
+* yt-dlp
+* Ghostscript
 
-for powering the technologies behind PDF2AI.
+for powering the technologies behind Altair.
 
 ---
 

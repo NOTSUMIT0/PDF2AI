@@ -1,25 +1,28 @@
-import tempfile
 import os
+import traceback
 
-from app.services.whisper_model import (
-    model
-)
+from app.services.whisper_model import model
 
-def transcribe_video(
-    video_path
-):
+
+def transcribe_video(video_path):
 
     try:
 
+        print("START VIDEO")
+        print(video_path)
+
         result = model.transcribe(
-            video_path
+            video_path,
+            fp16=False
         )
 
-    except Exception as e:
+        print("END VIDEO")
 
-        raise Exception(
-            f"Video transcription failed: {str(e)}"
-        )
+    except Exception:
+
+        traceback.print_exc()
+
+        raise
 
     transcript = result["text"]
 

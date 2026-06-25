@@ -1,34 +1,37 @@
 import os
+import traceback
 
-from app.services.whisper_model import (
-    model
-)
+from app.services.whisper_model import model
 
-def transcribe_audio(
-    audio_path
-):
+
+def transcribe_audio(audio_path):
 
     try:
+
+        print("START AUDIO")
+        print(audio_path)
 
         result = model.transcribe(
             audio_path,
             fp16=False
         )
 
-    except Exception as e:
+        print("END AUDIO")
 
-        raise Exception(
-            f"Audio transcription failed: {str(e)}"
-        )
+    except Exception:
+
+        traceback.print_exc()
+
+        raise
 
     markdown = f"""
-    # Audio Transcript
+# Audio Transcript
 
-    **File:** {os.path.basename(audio_path)}
+**File:** {os.path.basename(audio_path)}
 
-    ---
+---
 
-    {result["text"]}
-    """
+{result["text"]}
+"""
 
     return markdown

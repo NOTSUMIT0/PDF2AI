@@ -7,6 +7,26 @@ from app.services.audio_transcriber import (
     transcribe_audio
 )
 
+import sys
+
+if getattr(sys, "frozen", False):
+
+    FFMPEG_DIR = os.path.join(
+        sys._MEIPASS,
+        "runtime",
+        "ffmpeg"
+    )
+
+else:
+
+    FFMPEG_DIR = os.path.abspath(
+        os.path.join(
+            os.path.dirname(__file__),
+            "../../runtime/ffmpeg"
+        )
+    )
+
+
 def transcribe_youtube(
     url
 ):
@@ -23,6 +43,8 @@ def transcribe_youtube(
         "format": "bestaudio/best",
 
         "outtmpl": output_template,
+        
+        "ffmpeg_location": FFMPEG_DIR,
 
         "quiet": True,
 
